@@ -17,15 +17,35 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.set("view engine", "ejs");
 
-app.get("/", (req, res) => {
-    // const templateVars = {
-    //   urls: urlDatabase,
-    //   user_id: req.session.user_id,
-    //   email: req.session.email
-    // };
-    res.render("main");
-  });
+app.get("/login", (req, res) => {
+  res.render("login");
+});
 
-  app.listen(PORT, () => {
-    console.log(`Example app listening on port ${PORT}!`);
-  });
+app.get("/register", (req, res) => {
+  res.render("register");
+});
+
+app.get("/profile", (req, res) => {
+  res.render("profile");
+});
+
+app.get("/stats", (req, res) => {
+  res.render("stats");
+});
+
+app.get("/rank", (req, res) => {
+  res.render("rank");
+});
+
+app.get("/wild", (req, res) => {
+  res.render("wild");
+});
+
+app.get("/multi", (req, res) => {
+  res.render("wild");
+});
+
+
+app.listen(PORT, () => {
+  console.log(`Example app listening on port ${PORT}!`);
+});
