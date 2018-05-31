@@ -23,7 +23,7 @@ app.get("/", (req, res) => {
     //   user_id: req.session.user_id,
     //   email: req.session.email
     // };
-    res.render("index");
+    res.render("main");
   });
 
   app.listen(PORT, () => {
