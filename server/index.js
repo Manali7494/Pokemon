@@ -1,8 +1,8 @@
-var express = require("express");
+const express = require("express");
 
-var app = express();
+const app = express();
 
-var PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8080;
 const bodyParser = require("body-parser");
 // const bcrypt = require("bcryptjs");
 // const cookieSession = require("cookie-session");
@@ -24,4 +24,9 @@ app.get("/", (req, res) => {
     //   email: req.session.email
     // };
     res.render("index");
+  });
+
+  app.listen(PORT, () => {
+    console.log(`Example app listening on port ${PORT}!`);
+    
   });
