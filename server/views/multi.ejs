@@ -3,15 +3,34 @@
 
 <head>
     <%- include ./partials/_header.ejs %>
-        <script src="/scripts/async-polling.min.js" async></script>
-        <script>
-        
-        </script>
+        <script src="/scripts/async-polling.min.js"></script>
+        <script src="/scripts/check.js" async></script>
+
 </head>
 
 <body>
     <%- include ./partials/_nav.ejs %>
-   
+       
+        <br>
+            <button id="polling" type="submit">Send</button>
+      
+      
+<h2 id="message">Hi this is a message</h2>
+        <!-- <script>
+            var i = 0;
+
+            AsyncPolling(function (end) {
+                i += 1;
+                if (i === 3) {
+                    return end(console.log("reached 3"));
+                }
+                if (i >= 5) {
+                    this.stop();
+                    return end(console.log("reached 5"));
+                }
+                end(console.log("ENDED THE STUFF"));
+            }, 1000).run()
+        </script> -->
 </body>
 
 </html>
