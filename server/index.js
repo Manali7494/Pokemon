@@ -8,7 +8,7 @@ const bodyParser = require("body-parser");
 // const cookieSession = require("cookie-session");
 
 app.use(bodyParser.urlencoded({ extended: true }));
-
+app.use(express.static('public'))
 // app.use(
 //   cookieSession({
 //     secret: "userID"
@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
-    res.redirect("login");
+    res.redirect("/login");
   });
 
 app.get("/login", (req, res) => {
@@ -46,7 +46,7 @@ app.get("/wild", (req, res) => {
 });
 
 app.get("/multi", (req, res) => {
-  res.render("wild");
+  res.render("multi");
 });
 
 
