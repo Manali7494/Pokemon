@@ -3,10 +3,61 @@
 
 <head>
     <%- include ./partials/_header.ejs %>
+
+        <link rel="stylesheet" type="text/css" href="styles/login.css">
 </head>
 
 <body>
-        <%- include ./partials/_nav.ejs %>
+    <%- include ./partials/_nav.ejs %>
+        <div class="container-login100">
+            <div class="wrap-login100">
+
+                    <div class="img-wrap">
+                            <img class="login-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/1280px-International_Pok%C3%A9mon_logo.svg.png
+                            " alt="Pokemon ">
+                            <span class="login100-form-title">
+                                  Light
+                            </span>
+                        <img class="login-img" src="https://pokemontcg.io/assets/images/pokemon-minimalist-30bc8a16a6a63e980a4e06c11a66638b.png" alt="Pokemon ">
+                    </div>
+                
+                <form class="login100-form validate-form"></form>
+                <div class="wrap-input100 validate-input " data-validate="Valid email is: a@b.c ">
+                    <input class="input100 " type="text " name="email ">
+                    <span class="focus-input100 " data-placeholder="Email "></span>
+                </div>
+
+                <div class="wrap-input100 validate-input " data-validate="Enter password ">
+                    <span class="btn-show-pass ">
+                        <i class="zmdi zmdi-eye "></i>
+                    </span>
+                    <input class="input100 " type="password " name="pass ">
+                    <span class="focus-input100 " data-placeholder="Password "></span>
+                </div>
+
+                <div class="wrap-input100 validate-input ">
+                        <input class="input100" type="text " name="username">
+                        <span class="focus-input100" data-placeholder="Username"></span>
+                    </div>
+
+                <div class="container-login100-form-btn ">
+                    <div class="wrap-login100-form-btn ">
+                        <div class="login100-form-bgbtn "></div>
+                        <a href="/profile" class="login100-form-btn ">
+                            Register
+                        </a>
+                    </div>
+                </div>
+                </form>
+                <div class="wrap-login100-form-btn register ">
+                        <div class="login100-form-bgbtn "></div>
+                        <a href="/login" class="login100-form-btn ">
+                           Back to Login
+                        </a>
+                    </div>
+            </div>
+        </div>
+
 </body>
 
 </html>
