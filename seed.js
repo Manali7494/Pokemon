@@ -1,5 +1,6 @@
 const settings = require('./settings.json');
-var set = {
+
+const set = {
   client: 'pg',
   connection: {
     host: settings.hostname,
@@ -11,6 +12,7 @@ var set = {
   }
 };
 const knex = require('knex')(set);
+
 console.log(set);
 
 knex.schema.dropTableIfExists('pokemon');
@@ -64,3 +66,5 @@ knex.schema.createTable('pokedex', function(table){
   table.string('nickname');
   table.integer('user.id');
 });
+
+knex('pokemon').insert({name: 'Pikachu',pokedex_num: 25, health: 100, attack: 20, rarity: "common", imageURL: 'http://'})
