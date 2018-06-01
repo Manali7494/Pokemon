@@ -324,7 +324,7 @@
   }
   
   .wrap-profile-form-btn {
-    width: 33%;
+    width: 32.4%;
     display: inline-block;
     position: relative;
     z-index: 1;
@@ -336,13 +336,13 @@
   .profile-form-bgbtn {
     position: absolute;
     z-index: -1;
-    width: 300%;
+    width: 400%;
     height: 100%;
     background: #a64bf4;
-    background: -webkit-linear-gradient(right,  #e2d02f, #1671c7, #fdf921, #1671c7);
-    background: -o-linear-gradient(right,  #e2d02f, #1671c7, #fdf921, #1671c7);
-    background: -moz-linear-gradient(right,  #e2d02f, #1671c7, #fdf921, #1671c7);
-    background: linear-gradient(right, #e2d02f, #1671c7, #fdf921, #1671c7);
+    background: -webkit-linear-gradient(right,  #929292, #1671c7, #929292, #1671c7);
+    background: -o-linear-gradient(right,  #929292, #1671c7, #929292, #1671c7);
+    background: -moz-linear-gradient(right,  #929292, #1671c7, #929292, #1671c7);
+    background: linear-gradient(right, #929292, #1671c7, #929292, #1671c7);
     top: 0;
     left: -100%;
   
@@ -366,12 +366,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0 20px;
+
     width: 100%;
     height: 50px;
     text-decoration: none;
   }
-  
+   @media (max-width: 620px) {
+    .profile-form-btn {
+        font-size: 16px;  
+    }
+  } 
   .wrap-profile-form-btn:hover .profile-form-bgbtn {
     left: 0;
   }
