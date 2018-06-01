@@ -1,7 +1,7 @@
 {
-  "user":"labber",
-  "password":"labber",
-  "database":"midterm",
+  "user":"development",
+  "password":"development",
+  "database":"pokemon",
   "hostname":"localhost",
   "port": 5432,
   "ssl":true
