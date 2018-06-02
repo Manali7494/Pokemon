@@ -1,10 +1,10 @@
 exports.up = function(knex) {
   return knex.schema.createTable("multigame", (table) => {
     table.increments();
-    table.integer('user1_id').unsigned();
-    table.integer('user2_id').unsigned();
-    table.integer('multi_winner').unsigned();
-    table.integer('multi_attacker').unsigned();
+    table.string('user1_name');
+    table.string('user2_name');
+    table.string('multi_winner');
+    table.string('multi_attacker');
   });
 };
 

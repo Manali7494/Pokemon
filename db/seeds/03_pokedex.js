@@ -5,9 +5,9 @@ exports.seed = function(knex, Promise) {
     .then(function () {
       // Inserts seed entries
       return knex('pokedex').insert([
-        {status: 'active', pokemon_id: 1, pokemon_health: 100, nickname: 'Cutie', user_id: 1},
-        {status: 'current', pokemon_id: 2, pokemon_health: 100, nickname: 'Amazing', user_id: 2},
-        {status: 'dead', pokemon_id: 3, pokemon_health: 100, nickname: 'Firey', user_id: 3}
+        {status: 'active', pokedex_num: 1, pokemon_health: 100, nickname: 'Cutie', username: 'user1'},
+        {status: 'current', pokedex_num: 2, pokemon_health: 100, nickname: 'Amazing', username: 'user2'},
+        {status: 'dead', pokedex_num: 3, pokemon_health: 100, nickname: 'Firey', username: 'user3'}
       ]);
     });
 };

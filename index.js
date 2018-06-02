@@ -103,37 +103,80 @@ app.get("/", (req, res) => {
 });
 
 app.get("/login", (request, response) => {
-  response.render('login');
+  let usrID = request.session.userid;
+  if (usrID !== undefined) {
+    response.redirect('/profile');
+  } else{
+    response.render("login");
+  }
 });
 
 app.get("/profile", (request, response) => {
-  //response.render('profile');
-  knex('users').select().then((result) => {
+  response.render('profile');
+  /*knex('users').select().then((result) => {
     response.status(200).json(result);
-  });
+  });*/
 });
 
 app.post("/login", (request, response) => {
-  console.log('email is + ' + request.body.email);
-  console.log('password is ' + request.body.pass);
+  var password = request.body.pass;
+  knex('users').select('password').where({email:request.body.email}).then((result) =>{
+    if (result.length > 0)
+      {
+        if (password === result[0].password){
+        response.redirect('/login');
+      }
+    }
+    else{
+      response.send('Please log in with correct username and password');
+    }
+  });
+
+  app.post("/logout", (request, response) => {
+    request.session = null;
+    response.redirect("/login");
+  });
+/*  if (password === request.body.pass){
+    response.render('/profile');
+  }
+  else{
+    response.send('Please enter a valid email and password');
+  }*/
+/*  console.log('email is + ' + request.body.email);
+  console.log('password is ' + request.body.pass);*/
 });
 
 app.get("/register", (request, response) =>{
-  response.render('register');
+  let usrID = request.session.userid;
+  if (usrID !== undefined){
+    response.redirect("/profiles");
+  } else{
+    response.render("register");
+  }
 });
 
 app.post("/register", (request, response) => {
-
+    [1, 4, 7].forEach((element) => {
+      knex('pokedex').insert({
+        pokedex_num: element,
+        pokemon_health: 100,
+        nickname: 'pokemon',
+        username: request.body.username
+      }).then(result => {
+        response.status(202);
+      });
+    });
     knex('users').insert({
       username: request.body.username,
       email: request.body.email,
       password: request.body.pass,
-      pokedex_id: 1,
       gold: 0,
       pokeballs: 0
-  }).then(result => {
-    response.status(201);
-  });
+    }).then(result => {
+      response.status(200);
+    });
+    request.session['userid'] = request.body.username;
+    response.redirect('/profile');
 });
 
 app.listen(PORT, () => {

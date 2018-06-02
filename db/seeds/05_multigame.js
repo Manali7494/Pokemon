@@ -5,8 +5,8 @@ exports.seed = function(knex, Promise) {
     .then(function () {
       // Inserts seed entries
       return knex('multigame').insert([
-        {user1_id: 1, user2_id: 2, multi_winner: 1, multi_attacker: 2},
-        {user1_id: 2, user2_id: 3, multi_winner: 2, multi_attacker: 3}
+        {user1_name: 'user1', user2_name: 'user1', multi_winner: 'user1', multi_attacker: 'user1'},
+        {user1_name: 'user2', user2_name: 'user3', multi_winner: 'user2', multi_attacker: 'user2'}
       ]);
     });
 };
