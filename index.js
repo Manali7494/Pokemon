@@ -190,41 +190,27 @@ app.get("/wild", (request, response) => {
 });
 
 app.post("/register", (request, response) => {
-  if (
-    request.body.username !== "" &&
-    request.body.email !== "" &&
-    request.body.pass !== ""
-  ) {
-    [1, 4, 7].forEach(element => {
-      knex("pokedex")
-        .insert({
-          pokedex_num: element,
-          pokemon_health: 100,
-          nickname: "pokemon",
-          username: request.body.username
-        })
-        .then(result => {
-          response.status(202);
-        });
+
+if (request.body.username !== "" && request.body.email !== "" && request.body.pass !== ""){
+    let rand = Math.round(Math.random() * 2);
+    let array = [1,4,7];
+    let num = array[rand];
+
+    knex('users').insert({
+      username: request.body.username,
+      email: request.body.email,
+      password: request.body.pass,
+      pokedex_num: num
+    }).then(result => {
+      response.status(200);
     });
-    knex("users")
-      .insert({
-        username: request.body.username,
-        email: request.body.email,
-        password: request.body.pass,
-        gold: 0,
-        pokeballs: 0
-      })
-      .then(result => {
-        response.status(200);
-      });
-    request.session["userid"] = request.body.username;
-    response.redirect("/profile");
-  } else {
-    response.send("Please enter a valid username, email, and password");
+    request.session['userid'] = request.body.username;
+    response.redirect('/profile');
+  } else{
+    response.send('Please enter a valid username, email, and password');
+
   }
 });
-
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);
 });

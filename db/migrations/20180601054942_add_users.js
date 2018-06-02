@@ -4,8 +4,7 @@ exports.up = function(knex) {
     table.string('username').notNullable();
     table.string('email').notNullable();
     table.string('password').notNullable();
-    table.integer('gold');
-    table.integer('pokeballs');
+    table.integer('pokedex_num').notNullable();
   });
 };
 
