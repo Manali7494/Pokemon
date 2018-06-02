@@ -1,7 +1,8 @@
 .card-wrapper {
+  font-family:Poppins-Medium; 
     margin-left: 10%;
     margin-right:10%;
-    background-color: #d0e0cf;
+    /* background-color: #d0e0cf; */
     margin: auto;
     text-align: center;
     padding-bottom:2%;
@@ -10,22 +11,22 @@
 .current {
   display: inline-block;
   width: 27%;
-  background-color: rgb(226, 71, 71);
+  /* background-color: rgb(226, 71, 71); */
 }
 
 .active {
   display: inline-block;
   width: 40%;
-  background-color: rgb(71, 226, 71);
+  /* background-color: rgb(71, 226, 71); */
 }
 
 .rim img {
   display: inline-block;
   width: 100%;
-  background-color: rgb(195, 71, 226);
+  /* background-color: rgb(195, 71, 226); */
 }
 .btn1 {
-  background-color: aqua;
+  /* background-color: aqua; */
   width: 50%;
   margin-left: 25%;
   margin-right: 25%;
@@ -33,7 +34,7 @@
 }
 
 .btn2 {
-  background-color: aqua;
+  /* background-color: aqua; */
   width: 50%;
 }
 
@@ -43,7 +44,4 @@
   height: auto;
 }
 
-.current img {
-  width: 100%;
-  height: auto;
-}
+
