@@ -3,7 +3,7 @@
 const settings = require("./settings.json");
 
 module.exports = {
-  development: {
+  production: {
     client: "pg",
     connection: {
       database: settings.database,
