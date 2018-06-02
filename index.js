@@ -153,6 +153,7 @@ app.get("/register", (request, response) =>{
   } else{
     response.render("register");
   }
+
 });
 
 app.post("/register", (request, response) => {
