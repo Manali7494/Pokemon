@@ -11,7 +11,6 @@
     <%- include ./partials/_nav.ejs %>
         <div class="container-login100">
             <div class="wrap-login100">
-
                 <div class="img-wrap">
                     <img class="login-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/1280px-International_Pok%C3%A9mon_logo.svg.png
                         " alt="Pokemon ">
@@ -21,34 +20,30 @@
                     <img class="login-img" src="https://pokemontcg.io/assets/images/pokemon-minimalist-30bc8a16a6a63e980a4e06c11a66638b.png"
                         alt="Pokemon ">
                 </div>
-
-                <form class="login100-form validate-form"></form>
-
-
-
+                <form class="login100-form validate-form" method="POST" action="/login">
                 <div class="wrap-input100 validate-input " data-validate="Valid email is: a@b.c ">
-                    <input class="input100 " type="text " name="email ">
+                    <input class="input100" type="text" name="email ">
                     <span class="focus-input100 " data-placeholder="Email "></span>
                 </div>
-
                 <div class="wrap-input100 validate-input " data-validate="Enter password ">
                     <span class="btn-show-pass ">
                         <i class="zmdi zmdi-eye "></i>
                     </span>
-                    <input class="input100 " type="password " name="pass ">
+                    <input class="input100 " type="password " name="pass">
                     <span class="focus-input100 " data-placeholder="Password "></span>
                 </div>
 
                 <div class="container-login100-form-btn ">
                     <div class="wrap-login100-form-btn ">
                         <div class="login100-form-bgbtn "></div>
-                        <a href="/profile" class="login100-form-btn ">
+
+                        <button type="submit" class="login100-form-btn" value="Login">
                             Login
-                        </a>
+                        </button>
                     </div>
                 </div>
                 </form>
-                <div class="wrap-login100-form-btn register ">
+                <div class="wrap-login100-form-btn register">
                     <div class="login100-form-bgbtn"></div>
                     <a href="/register " class="login100-form-btn">
                         Register

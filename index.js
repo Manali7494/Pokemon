@@ -1,36 +1,39 @@
-
-
-
 const express = require("express");
 const PORT = process.env.PORT || 8080;
-const ENV = process.env.ENV || "development";
+const environment = process.env.NODE_ENV || "development";
 const bodyParser = require("body-parser");
 const app = express();
+const cookieSession = require('cookie-session');
 
+const knexConfig  = require("./knexfile")[environment];
+const knex        = require("knex")(knexConfig);
+//const knexLogger  = require('knex-logger');
+//app.use(knexLogger(knex));
+app.use(cookieSession({
+  secret: 'userID'
+}));
 
-const knexConfig  = require("./knexfile");
-const knex        = require("knex")(knexConfig[ENV]);
-const knexLogger  = require('knex-logger');
-
-app.use(knexLogger(knex));
-//app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.set("view engine", "ejs");
 app.use(express.static("public"));
-
+/*
 // SELECTING EVERYTHING
 app.get('/pokemons', function(req, res){
   knex.select().from('pokemon').then(function(pokemon){
     res.send(pokemon);
   });
 });
+
 // SELECTING ID = 1
-app.get('/usersid',function(req,res){
+
+app.get('/usersid', function(req, res){
   knex.select().from('users').where('id',1). then(function(usersid){
     res.send(usersid);
   });
 });
 
+*/
 
 // INSERT ROW and send stuff
 /*app.post('/pokemons', function(req, res){
@@ -54,7 +57,7 @@ app.get('/usersid',function(req,res){
 // REFACTORED CODE
 // GET
 
-app.get('/pokemons/:id', function(req, res){
+/*app.get('/pokemons/:id', function(req, res){
   knex.select()
     .from('pokemon')
     .where('id', req.params.id)
@@ -62,10 +65,10 @@ app.get('/pokemons/:id', function(req, res){
       res.send(result);
 });
     });
-
+*/
 // UPDATE --> NOTE: it adds to the end of the line
 
-app.put('/pokemons/:id', function(req, res){
+/*app.put('/pokemons/:id', function(req, res){
   console.log(req.body);
   knex('pokemon').where('id', req.params.id)
               .update({
@@ -79,10 +82,10 @@ app.put('/pokemons/:id', function(req, res){
                   });
               })
 });
-
+*/
 
 // DELETE
-app.delete('/pokemons/:id', function(req, res){
+/*app.delete('/pokemons/:id', function(req, res){
   knex('wildgame').where('id', req.params.id).del().then(function(){
     knex.select()
     .from('wildgame')
@@ -92,40 +95,46 @@ app.delete('/pokemons/:id', function(req, res){
 
   });
 })
-
+*/
 // OTHER STUFF
+
 app.get("/", (req, res) => {
   res.redirect("/login");
 });
 
-app.get("/login", (req, res) => {
-  res.render("login");
+app.get("/login", (request, response) => {
+  response.render('login');
 });
 
-app.get("/register", (req, res) => {
-  res.render("register");
+app.get("/profile", (request, response) => {
+  //response.render('profile');
+  knex('users').select().then((result) => {
+    response.status(200).json(result);
+  });
 });
 
-app.get("/profile", (req, res) => {
-  res.render("profile");
+app.post("/login", (request, response) => {
+  console.log('email is + ' + request.body.email);
+  console.log('password is ' + request.body.pass);
 });
 
-app.get("/stats", (req, res) => {
-  res.render("stats");
+app.get("/register", (request, response) =>{
+  response.render('register');
 });
 
-app.get("/rank", (req, res) => {
-  res.render("rank");
-});
+app.post("/register", (request, response) => {
 
-app.get("/wild", (req, res) => {
-  res.render("wild");
+    knex('users').insert({
+      username: request.body.username,
+      email: request.body.email,
+      password: request.body.pass,
+      pokedex_id: 1,
+      gold: 0,
+      pokeballs: 0
+  }).then(result => {
+    response.status(201);
+  });
 });
-
-app.get("/multi", (req, res) => {
-  res.render("multi");
-});
-
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);
