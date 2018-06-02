@@ -136,14 +136,6 @@ app.post("/login", (request, response) => {
     request.session = null;
     response.redirect("/login");
   });
-/*  if (password === request.body.pass){
-    response.render('/profile');
-  }
-  else{
-    response.send('Please enter a valid email and password');
-  }*/
-/*  console.log('email is + ' + request.body.email);
-  console.log('password is ' + request.body.pass);*/
 });
 
 app.get("/register", (request, response) =>{
