@@ -159,10 +159,7 @@
     margin: 0 auto;
   }
   
-  .container-profile {
-    width: 100%;  
-    height: 95%;
-    min-height: 100vh;
+  .container-profile { 
     display: -webkit-box;
     display: -webkit-flex;
     display: -moz-box;
@@ -180,7 +177,7 @@
   [ Form ]*/
   
   .profile-form {
-    width: 100%;
+    /* width: 100%; */
   }
   
   .profile-form-title {
@@ -201,7 +198,7 @@
   [ Input ]*/
   
   .wrap-input100 {
-    width: 100%;
+    /* width: 100%; */
     position: relative;
     border-bottom: 3px solid #d3d3d3;
     margin-bottom: 37px;

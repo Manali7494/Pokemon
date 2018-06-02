@@ -4,18 +4,18 @@
     background-color: #d0e0cf;
     margin: auto;
     text-align: center;
-    padding: 3%
+    padding-bottom:2%;
 }
 
 .current {
   display: inline-block;
-  width: 28%;
+  width: 27%;
   background-color: rgb(226, 71, 71);
 }
 
 .active {
   display: inline-block;
-  width: 35%;
+  width: 40%;
   background-color: rgb(71, 226, 71);
 }
 
