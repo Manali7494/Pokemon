@@ -7,22 +7,22 @@
 
 @font-face {
     font-family: fantasy;
-    src: url('../fonts/poppins/fantasy.ttf'); 
+    src: url('../fonts/fantasy.ttf'); 
   }
   
   @font-face {
     font-family: Poppins-Medium;
-    src: url('../fonts/poppins/Poppins-Medium.ttf'); 
+    src: url('../fonts/Poppins-Medium.ttf'); 
   }
   
   @font-face {
     font-family: Poppins-Bold;
-    src: url('../fonts/poppins/Poppins-Bold.ttf'); 
+    src: url('../fonts/Poppins-Bold.ttf'); 
   }
   
   @font-face {
     font-family: Poppins-SemiBold;
-    src: url('../fonts/poppins/Poppins-SemiBold.ttf'); 
+    src: url('../fonts/Poppins-SemiBold.ttf'); 
   }
   
   
@@ -161,13 +161,13 @@
   
   .container-profile {
     width: 100%;  
+    height: 95%;
     min-height: 100vh;
     display: -webkit-box;
     display: -webkit-flex;
     display: -moz-box;
     display: -ms-flexbox;
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     padding: 15px;
@@ -290,6 +290,7 @@
   
   .wrap-profile {
     width: 100%;
+    height: 95%;
     background: #fff;
     border-radius: 10px;
     overflow: hidden;
@@ -300,6 +301,7 @@
     -webkit-box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
     -o-box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
     -ms-box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
+    margin-top: -4vh;
   }
   
     
@@ -311,7 +313,65 @@
   }  */
   
   /*------------------------------------------------------------------
-  [ Button ]*/
+  /* GAME BUTTONS */
+
+  .wrap-game-button {
+    width: 40%;
+    display: inline-block;
+    position: relative;
+    z-index: 1;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+
+  .game-bgbtn {
+    
+    position: absolute;
+    z-index: -1;
+    width: 400%;
+    height: 100%;
+    background: #a64bf4;
+    background: -webkit-linear-gradient(right,  #929292, #1671c7, #929292, #1671c7);
+    background: -o-linear-gradient(right,  #929292, #1671c7, #929292, #1671c7);
+    background: -moz-linear-gradient(right,  #929292, #1671c7, #929292, #1671c7);
+    background: linear-gradient(right, #929292, #1671c7, #929292, #1671c7);
+    top: 0;
+    left: -100%;
+  
+    -webkit-transition: all 0.2s;
+    -o-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    transition: all 0.2s;
+  }
+
+  .game-btn {
+
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 22px;
+    color: #fff;
+    line-height: 1.2;
+    text-transform: uppercase;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    width: 100%;
+    height: 30vh;
+    text-decoration: none;
+  }
+  
+  #central{
+    margin-left: 10%;
+    margin-right:10%;
+    /* background-color: #929292; */
+    margin: auto;
+    text-align: center;
+    padding: 3%
+}
   .container-profile-form-btn {
     display: -webkit-box;
     display: -webkit-flex;
@@ -377,6 +437,9 @@
     }
   } 
   .wrap-profile-form-btn:hover .profile-form-bgbtn {
+    left: 0;
+  }
+  .wrap-game-button:hover .game-bgbtn {
     left: 0;
   }
   

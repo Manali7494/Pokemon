@@ -7,23 +7,24 @@
 
 @font-face {
   font-family: fantasy;
-  src: url('../fonts/poppins/fantasy.ttf'); 
+  src: url('../fonts/fantasy.ttf'); 
 }
 
 @font-face {
   font-family: Poppins-Medium;
-  src: url('../fonts/poppins/Poppins-Medium.ttf'); 
+  src: url('../fonts/Poppins-Medium.ttf'); 
 }
 
 @font-face {
   font-family: Poppins-Bold;
-  src: url('../fonts/poppins/Poppins-Bold.ttf'); 
+  src: url('../fonts/Poppins-Bold.ttf'); 
 }
 
 @font-face {
   font-family: Poppins-SemiBold;
-  src: url('../fonts/poppins/Poppins-SemiBold.ttf'); 
+  src: url('../fonts/Poppins-SemiBold.ttf'); 
 }
+
 
 
 
