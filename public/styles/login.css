@@ -7,23 +7,24 @@
 
 @font-face {
   font-family: fantasy;
-  src: url('../fonts/poppins/fantasy.ttf'); 
+  src: url('../fonts/fantasy.ttf'); 
 }
 
 @font-face {
   font-family: Poppins-Medium;
-  src: url('../fonts/poppins/Poppins-Medium.ttf'); 
+  src: url('../fonts/Poppins-Medium.ttf'); 
 }
 
 @font-face {
   font-family: Poppins-Bold;
-  src: url('../fonts/poppins/Poppins-Bold.ttf'); 
+  src: url('../fonts/Poppins-Bold.ttf'); 
 }
 
 @font-face {
   font-family: Poppins-SemiBold;
-  src: url('../fonts/poppins/Poppins-SemiBold.ttf'); 
+  src: url('../fonts/Poppins-SemiBold.ttf'); 
 }
+
 
 
 
@@ -161,7 +162,7 @@ iframe {
 
 .container-login100 {
   width: 100%;  
-  min-height: 100vh;
+  min-height: 100%;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
@@ -313,7 +314,7 @@ iframe {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  padding-top: 13px;
+  padding-top: 1vh;
 }
 
 .wrap-login100-form-btn {
@@ -375,7 +376,8 @@ iframe {
 
 @media (max-width: 576px) {
   .wrap-login100 {
-    padding: 77px 15px 33px 15px;
+    /* height: 60vh; */
+    padding: 5vh 2vh 5vh 2vh;
   }
 }
 
@@ -389,7 +391,7 @@ iframe {
 }
 
 .register {
-  margin-top: 20px;
+  margin-top: 1vh;
 }
 
 .register a {

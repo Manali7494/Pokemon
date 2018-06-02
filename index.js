@@ -107,7 +107,7 @@ app.get("/login", (request, response) => {
   if (usrID !== undefined) {
     response.redirect('/profile');
   } else{
-    response.render("login");
+    response.render('login');
   }
 });
 
@@ -120,18 +120,18 @@ app.get("/profile", (request, response) => {
 
 app.post("/login", (request, response) => {
   var password = request.body.pass;
-  knex('users').select('password').where({email:request.body.email}).then((result) =>{
+  knex('users').select('password').where({username:request.body.username}).then((result) =>{
     if (result.length > 0)
       {
         if (password === result[0].password){
-        response.redirect('/login');
+        request.session['userid'] = request.body.username;
+        response.redirect('/profile');
       }
     }
     else{
       response.send('Please log in with correct username and password');
     }
   });
-
   app.post("/logout", (request, response) => {
     request.session = null;
     response.redirect("/login");
@@ -157,6 +157,8 @@ app.get("/register", (request, response) =>{
 });
 
 app.post("/register", (request, response) => {
+
+if (request.body.username !== "" && request.body.email !== "" && request.body.pass !== ""){
     [1, 4, 7].forEach((element) => {
       knex('pokedex').insert({
         pokedex_num: element,
@@ -178,6 +180,9 @@ app.post("/register", (request, response) => {
     });
     request.session['userid'] = request.body.username;
     response.redirect('/profile');
+  } else{
+    response.send('Please enter a valid username, email, and password');
+  }
 });
 
 app.listen(PORT, () => {

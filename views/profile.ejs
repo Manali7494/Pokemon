@@ -5,44 +5,79 @@
     <%- include ./partials/_header.ejs %>
 
         <link rel="stylesheet" type="text/css" href="styles/layout.css">
+        <link rel="stylesheet" type="text/css" href="styles/cards.css">
 </head>
 
 <body>
-    <%- include ./partials/_nav.ejs %>
-        <div class="container-profile">
-            <div class="wrap-profile">
-                <span class="wrap-profile-form-btn">
-                    <div class="profile-form-bgbtn"></div>
-                    <a href="/login" class="profile-form-btn">
-                        Logout
+    <div class="container-profile">
+        <div class="wrap-profile">
+            <span class="wrap-profile-form-btn">
+                <div class="profile-form-bgbtn"></div>
+                <a href="/login" class="profile-form-btn">
+                    Play Pokemon
+                </a>
+            </span>
+            <span class="wrap-profile-form-btn">
+                <div class="profile-form-bgbtn"></div>
+                <a href="/login" class="profile-form-btn">
+                    Your Stats
+                </a>
+            </span>
+            <span class="wrap-profile-form-btn">
+                <div class="profile-form-bgbtn"></div>
+                <a href="/login" class="profile-form-btn">
+                    Your Rank
+                </a>
+            </span>
+            <div id="central">
+                <span class="wrap-game-button">
+                    <div class="game-bgbtn"></div>
+                    <a href="/login" class="game-btn">
+                        Wild
                     </a>
                 </span>
-                <span class="wrap-profile-form-btn">
-                    <div class="profile-form-bgbtn"></div>
-                    <a href="/login" class="profile-form-btn">
-                        Logout
+                <span class="wrap-game-button">
+                    <div class="game-bgbtn"></div>
+                    <a href="/login" class="game-btn">
+                        Multi
                     </a>
                 </span>
-                <span class="wrap-profile-form-btn">
-                    <div class="profile-form-bgbtn"></div>
-                    <a href="/login" class="profile-form-btn">
-                        Logout
-                    </a>
-                </span>
-
-
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid, id.</p>
-
+            </div>
+            <div class="card-wrapper">
+                <div class="current">
+                    <button class="btn1">Set Starting</button>
+                    <span class="rim">
+                        <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/009.png" alt="Pokemon">
+                        <h3 class="hp">HP:100</h3>
+                        <h3 class="attack">AP:20</h3>
+                        <img class="element" src="images/grass.png" alt="element">
+                    </span>
+                    <button class="btn2">Change Pokemon</button>
+                </div>
+                <div class="active">
+                    <button class="btn1">Set Starting</button>
+                    <span class="rim">
+                        <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/005.png" alt="Pokemon">
+                        <h3 class="hp">HP:100</h3>
+                        <h3 class="attack">AP:20</h3>
+                        <img class="element" src="images/grass.png" alt="element">
+                    </span>
+                    <button class="btn2">Change Pokemon</button>
+                </div>
+                <div class="current">
+                    <button class="btn1">Set Starting</button>
+                    <span class="rim">
+                        <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/002.png" alt="Pokemon">
+                        <h3 class="hp">HP:100</h3>
+                        <h3 class="attack">AP:20</h3>
+                        <img class="element" src="images/grass.png" alt="element">
+                    </span>
+                    <button class="btn2">Change Pokemon</button>
+                </div>
 
             </div>
-
-           
-
-
-
         </div>
-
-        </div>
+    </div>
 
 </body>
 
