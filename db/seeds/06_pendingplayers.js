@@ -5,8 +5,8 @@ exports.seed = function(knex, Promise) {
     .then(function () {
       // Inserts seed entries
       return knex('pendingplayers').insert([
-        {user_name: 'user1', pending_started: knex.fn.now()},
-        {user_name: 'user2', pending_started: knex.fn.now()}
+        {user_name: 'user1'},
+        {user_name: 'user2'}
       ]);
     });
 };
