@@ -366,7 +366,7 @@
   #central{
     margin-left: 10%;
     margin-right:10%;
-    background-color: #1aaf15;
+    /* background-color: #1aaf15; */
     margin: auto;
     text-align: center;
     padding: 3%
