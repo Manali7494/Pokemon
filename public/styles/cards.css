@@ -1,30 +1,55 @@
 .card-wrapper {
-  font-family:Poppins-Medium; 
-    margin-left: 10%;
-    margin-right:10%;
-    /* background-color: #d0e0cf; */
-    margin: auto;
-    text-align: center;
-    padding-bottom:2%;
+  position: relative;
+  height: 50vh;
+  font-family: Poppins-Medium;
+  margin-right: -2vh;
+  margin-left: -2vh;
+  text-align: center;
 }
 
-.current {
+.card-wrapper img{
+  width:100%
+}
+
+.current-right {
   display: inline-block;
-  width: 27%;
-  /* background-color: rgb(226, 71, 71); */
+  width: 35%;
+  margin-left: 14%;
+  border: solid 4px grey;
+  border-radius: 5px;
+  background-color: white;
+}
+.current-left {
+  display: inline-block;
+  width: 35%;
+  margin-right: 14%;
+  border: solid 4px grey;
+  border-radius: 5px;
+  background-color: white;
 }
 
 .active {
+  position: absolute;
+  right: 28%;
   display: inline-block;
-  width: 40%;
-  /* background-color: rgb(71, 226, 71); */
+  width: 45%;
+  z-index: 5;
+  border: solid 5px grey;
+  border-radius: 5px;
+  background-color: white;
 }
+@media (max-width: 450px) {
+.active {
+height: 290px;
+}
+}
+@media (max-width: 370px) {
+  .active {
+  height:270px;
+  }
+  }
 
-.rim img {
-  display: inline-block;
-  width: 100%;
-  /* background-color: rgb(195, 71, 226); */
-}
+
 .btn1 {
   /* background-color: aqua; */
   width: 50%;
@@ -39,9 +64,19 @@
 }
 
 .active .element,
-.current .element {
+.current-left .element,
+.current-right .element {
   width: 20px;
-  height: auto;
 }
 
+.active .element{
+  text-align: right;
+}
+.active .hp{
+  margin-right: 25%;
+  margin-bottom:5%
+}
 
+h3 > div.hp, h3 > div.attack {
+  display: inline-block;
+}

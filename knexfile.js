@@ -4,10 +4,10 @@ const settings = require("./settings.json");
 
 module.exports = {
   development: {
-    client: 'pg',
+    client: "pg",
     connection: {
       database: settings.database,
-      user:     settings.user,
+      user: settings.user,
       password: settings.password
     },
     pool: {
@@ -15,12 +15,11 @@ module.exports = {
       max: 10
     },
     migrations: {
-      tableName: 'knex_migrations',
-      directory: __dirname + '/db/migrations'
+      tableName: "knex_migrations",
+      directory: __dirname + "/db/migrations"
     },
     seeds: {
-      directory: __dirname + '/db/seeds'
+      directory: __dirname + "/db/seeds"
     }
   }
-
 };
