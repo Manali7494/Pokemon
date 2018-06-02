@@ -18,6 +18,7 @@ app.use(bodyParser.json());
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 /*
+<---------------NOTES ON KNEX ----------->
 // SELECTING EVERYTHING
 app.get('/pokemons', function(req, res){
   knex.select().from('pokemon').then(function(pokemon){
@@ -96,7 +97,7 @@ app.get('/usersid', function(req, res){
   });
 })
 */
-// OTHER STUFF
+// <!------------ END OF NOTES ON KNEX ------------->
 
 app.get("/", (req, res) => {
   res.redirect("/login");
@@ -145,6 +146,40 @@ app.get("/register", (request, response) =>{
   } else{
     response.render("register");
   }
+});
+
+app.get("/stats", (request, response) => {
+/// WHAT IS THE DIFFERENENCE BETWEEN STATS AND RANK????
+  response.render('stats');
+});
+
+app.get("/rank", (request, response) => {
+  response.render('rank');
+  // <---MULTIRANK--->
+  // NEED TO LOOP through to find usr1 and display only their information
+  // SELECT user1_name,user2_name,multi_winner from multigame where multi_winner = 'Usr1';
+
+
+  // <---WILD RANK --->
+  //  SELECT () from users JOIN wildgame ON users.username = wildgame.username WHERE wild_win='t';
+// COUNT --> SELECT COUNT(wild_win) from users JOIN wildgame ON users.username = wildgame.username WHERE wild_win='t';
+// DISPLAYS THE WILD POKEMON ID --> SELECT users.username, wild_id from users JOIN wildgame ON users.username = wildgame.username WHERE wild_win='t';
+
+});
+
+app.post('/pending', (request, response) => {
+  // LOCATION WHERE IT REACHES ONCE THE USER CLICKS THE PENDING BUTTON!
+});
+
+
+app.get("/multi", (request, response) => {
+  // RENDERS THE GAME PAGE FOR MULTIPLAYER
+  response.render('multi');
+});
+
+app.get('/wild', (request, response) => {
+  // renders the GAME PAGE FOR WILD
+  response.render('wild');
 
 });
 
