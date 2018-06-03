@@ -142,14 +142,12 @@ app.post("/login", (request, response) => {
         response.send("Please log in with correct username and password");
       }
     });
-  });
+});
 
-
-  app.post("/logout", (request, response) => {
-    request.session = null;
-    response.redirect("/login");
-  });
-
+app.post("/logout", (request, response) => {
+  request.session = null;
+  response.redirect("/login");
+});
 
 app.get("/register", (request, response) => {
   const usrID = request.session.userid;
@@ -247,67 +245,114 @@ app.get("/join", (request, response) => {
     });
 });
 
-
-
 app.get("/multi/:gameid", (request, response) => {
-
-      response.render("multi");
+  response.render("multi");
 });
 
+//  >>>>>>>>>>>>>>>>>>>>>>>>>> DATABASE ROUTES <<<<<<<<<<<<<<<<<<
+
+//  >>>>>>>>>>>>>>>>>  GET POKEMON database <<<<<<<<<<<<<<<<<<//
+
 app.get("/pokemon", (request, response) => {
-  
   const usrID = request.session.userid;
   if (usrID !== undefined) {
-  knex.select().from("pokemon")
-    .then(function(result) {
-      console.log('accessing pokemon database');
-      return response.send(result)
-    });
+    knex
+      .select()
+      .from("pokemon")
+      .then(function(result) {
+        console.log("accessing pokemon database");
+        return response.send(result);
+      });
   } else {
     response.redirect("/login");
   }
 });
+
+//  >>>>>>>>>>>>>>>>> GET CURRENT users name <<<<<<<<<<<<<<<<<<//
 
 app.get("/myusername", (request, response) => {
   const usrID = request.session.userid;
   if (usrID !== undefined) {
-      return response.send(usrID)
-  } 
-    response.redirect("/login");
+    return response.send(usrID);
+  }
+  response.redirect("/login");
 });
+
+//  >>>>>>>>>>>>>>>>> GET multigamse stats per user <<<<<<<<<<<<<<<<<<//
+
+app.get("/multistats", (request, response) => {
+  const usrID = request.session.userid;
+  if (usrID !== undefined) {
+    knex
+      .select("id", "user1_name", "user2_name", "multi_winner")
+      .from("multigame")
+      .where("user2_name", request.session.userid)
+      .andWhereNot("multi_winner", "")
+      .orWhere("user1_name", request.session.userid)
+      .andWhereNot("multi_winner", "")
+      .then(function(result) {
+        console.log("accessing multigame database");
+        return response.send(result);
+      });
+  } else {
+    response.redirect("/login");
+  }
+});
+
+app.get("/multirank", (request, response) => {
+  const usrID = request.session.userid;
+  if (usrID !== undefined) {
+    knex.select("multi_winner as username").from("multigame").whereNot("multi_winner","").count('multi_winner as wins').groupBy("multi_winner")
+      .then(function(result) {
+        console.log("accessing multigame database");
+        return response.send(result);
+      });
+  } else {
+    response.redirect("/login");
+  }
+});
+
+//  >>>>>>>>>>>>>>>>> GET multigame <<<<<<<<<<<<<<<<<<//
 
 app.get("/multigame", (request, response) => {
-  
   const usrID = request.session.userid;
   if (usrID !== undefined) {
-  knex.select().from("multigame")
-    .then(function(result) {
-      console.log('accessing multigame database');
-      return response.send(result)
-    });
+    knex
+      .select()
+      .from("multigame")
+      .then(function(result) {
+        console.log("accessing multigame database");
+        return response.send(result);
+      });
   } else {
     response.redirect("/login");
   }
 });
+
+//  >>>>>>>>>>>>>>>>> GET ALL of current users information (password) <<<<<<<<<<<<<<<<<<//
 
 app.get("/user", (request, response) => {
-  
   const usrID = request.session.userid;
   if (usrID !== undefined) {
-  knex.select().from("users").where('username',usrID)
-    .then(function(result) {
-      console.log('accessing user database');
-      return response.send(result)
-    });
+    knex
+      .select()
+      .from("users")
+      .where("username", usrID)
+      .then(function(result) {
+        console.log("accessing user database");
+        return response.send(result);
+      });
   } else {
     response.redirect("/login");
   }
 });
 
-app.get("/wild", (request, response) => {
-  // renders the GAME PAGE FOR WILD
-  response.render("/wild");
-});
+//  >>>>>>>>>>>>>>>>> DATABASE ROUTES ABOVE <<<<<<<<<<<<<<<<<<
+
+// app.get("/wild", (request, response) => {
+//   // renders the GAME PAGE FOR WILD
+//   response.render("/wild");
+// });
 
 app.post("/register", (request, response) => {
   if (
