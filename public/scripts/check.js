@@ -1,13 +1,21 @@
-let j = 0;
-$("#polling").on("click", function(event) {
-  if (j === 2) {
-    j = 0;
-  }
-  j += 1;
-  AsyncPolling(function(end) {
-    $("#message").text("I'm thinking!");
 
-    if (j >= 2) {
+
+
+
+$("#polling").on("click", function(event) {
+  let myturn= '';
+  
+  $.ajax({
+    url: "/multi/attacker",
+    success(data) {
+      myturn = data;
+    }
+  });
+  console.log(attacker)
+  AsyncPolling(function(end) {
+    $("#message").text(`The attacker is `,+attacker);
+
+    if (myturn === true) {
       $("#message").text("Your turn!");
       end();
       return this.stop();

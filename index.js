@@ -26,43 +26,43 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.set("view engine", "ejs");
 app.use(express.static("public"));
-/*
-<---------------NOTES ON KNEX ----------->
+
+// <---------------NOTES ON KNEX ----------->
 // SELECTING EVERYTHING
-app.get('/pokemons', function(req, res){
-  knex.select().from('pokemon').then(function(pokemon){
-    res.send(pokemon);
-  });
-});
+// app.get('/pokemons', function(req, res){
+//   knex.select().from('pokemon').then(function(result){
+//     res.send(result);
+//   });
+// });
 
 // SELECTING ID = 1
 
-app.get('/usersid', function(req, res){
-  knex.select().from('users').where('id',1). then(function(usersid){
-    res.send(usersid);
-  });
-});
+// app.get('/usersid', function(req, res){
+//   knex.select().from('users').where('id',1). then(function(usersid){
+//     res.send(usersid);
+//   });
+// });
 
-*/
+
 
 // INSERT ROW and send stuff
-/* app.post('/pokemons', function(req, res){
-  knex('pokemon').insert({
-    name: 'Added Pokemon',
-    pokedex_num: 2,
-    health: 100,
-    attack: 40,
-    type: 'fire',
-    rarity: 'common',
-    imgurl: 'http://'
-  })
-  .then(function(){
-    knex.select().from('pokemon')
-      .then(function(pokemons){
-        res.send(pokemons);
-      });
-  });
-}); */
+// app.post('/pokemons', function(req, res){
+//   knex('pokemon').insert({
+//     name: 'Added Pokemon',
+//     pokedex_num: 2,
+//     health: 100,
+//     attack: 40,
+//     type: 'fire',
+//     rarity: 'common',
+//     imgurl: 'http://'
+//   })
+//   .then(function(){
+//     knex.select().from('pokemon')
+//       .then(function(pokemons){
+//         res.send(pokemons);
+//       });
+//   });
+// });
 
 // REFACTORED CODE
 // GET
@@ -102,7 +102,6 @@ app.get('/usersid', function(req, res){
     .then(function(result){
       res.send(result)
     })
-
   });
 })
 */
@@ -179,9 +178,68 @@ app.post("/pending", (request, response) => {
   // LOCATION WHERE IT REACHES ONCE THE USER CLICKS THE PENDING BUTTON!
 });
 
-app.get("/multi", (request, response) => {
-  // RENDERS THE GAME PAGE FOR MULTIPLAYER
-  response.render("multi");
+app.get("/pending", (request, response) => {
+  knex.select('id','user1_name').from('multigame').where('user1_name',request.session.userid).andWhere('user2_name','').then(function(result){
+    console.log(result)
+    if(result.length !== 0){
+    const gameid = (result[0].id);
+    const plyr1 = (result[0].user1_name);
+    const me = request.session.userid;
+    if(plyr1 === me){
+      console.log("I'm going to the game!")
+   return response.redirect('/multi/:gameid')
+    }
+}
+ // create a game with me as user 1 and attacker
+    if(result.length === 0){
+      knex('multigame').insert({user1_name: request.session.userid, user1_pokedex_num: 7, user1_poke_health: 100, user2_name: '', user2_pokedex_num: 1, user2_poke_health: 100, multi_winner: '' , multi_attacker: request.session.userid}).then(result => {
+        response.status(200);
+      });
+      console.log('I create a game');
+      return response.redirect("/pending")
+    }
+    // add me as player 2
+    if(result.length !== 0){
+      const gameid = (result[0].id);
+     knex.select('id',gameid).from('multigame').update({user2_name: request.session.userid,  user2_pokedex_num: 4}).then(result => {
+      response.status(200);
+    });
+    return response.redirect("/multi/:"+gameid)
+    }
+
+    // if (result !== null)
+  //   knex('multigame').update({
+  //   multi_attacker: result 
+  // }).then(result => {response.status(200)})
+})
+});
+
+
+app.get("/multi/:gameid", (request, response) => {
+  const usrID = request.session.userid;
+  if (usrID === undefined) {
+    response.redirect("/login");
+  }
+
+});
+
+
+
+app.post("/multi/:gameid", (request, response) => {
+  knex('multigame').where('id', gameid.whereNot('user1_name',request.session.userid).andWhereNot('user2_name',request.session.userid)).then(function(result){
+    console.log('result')
+    knex('multigame').update({
+    multi_attacker: result 
+  }).then(result => {response.status(200)})
+  response.render("multi/:gameid");
+})
+});
+
+app.get("/multi/attacker", (request, response) => {
+  knex('multigame').where('multi_attacker',request.session.userid).then(function(result){
+    // response.send
+    console.log((result===request.session.userid));
+})
 });
 
 app.get("/wild", (request, response) => {

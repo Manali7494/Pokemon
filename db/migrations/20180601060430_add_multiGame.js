@@ -11,7 +11,7 @@ exports.up = function(knex) {
     table.string('multi_attacker');
   });
 };
-
+  
 exports.down = function(knex, Promise) {
   return knex.schema.dropTable("multigame");
 };
