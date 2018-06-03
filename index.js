@@ -270,7 +270,6 @@ app.get("/join", (request, response) => {
 app.get("/multi/:gameid", (request, response) => {
 
       response.render("multi");
-
 });
 
 // app.get("/multi/attack", (request, response) => {
