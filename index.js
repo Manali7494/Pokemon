@@ -143,10 +143,14 @@ app.post("/login", (request, response) => {
       }
     });
   });
+
+
   app.post("/logout", (request, response) => {
     request.session = null;
     response.redirect("/login");
   });
+
+
 app.get("/register", (request, response) => {
   const usrID = request.session.userid;
   if (usrID !== undefined) {
@@ -155,11 +159,6 @@ app.get("/register", (request, response) => {
     response.render("register");
   }
 });
-
-app.get("/rank", (request, response) => {
-
-
-
 
 app.get("/join", (request, response) => {
   // check if there are any games with empty spots
