@@ -1,0 +1,72 @@
+.active {
+    right: 27%;
+    bottom: 6%;
+    width: 46%;
+  }
+
+.opponent {
+  position: absolute;
+  right: 27%;
+  display: inline-block;
+  width: 46%;
+  z-index: 5;
+    bottom: 6%;
+  border: solid 5px rgb(163, 11, 11);
+  border-radius: 5px;
+  background-color: white;
+}
+@media (max-width: 450px) {
+  .opponent {
+    height: 290px;
+  }
+}
+@media (max-width: 370px) {
+  .opponent {
+    height: 270px;
+  }
+}
+
+.opponent .element {
+  width: 20px;
+}
+.opponent .hp {
+  margin-right: 25%;
+  margin-bottom: 5%;
+}
+
+.current-right {
+    
+  float: right;
+  width: 25%;
+  margin-right:1%;
+  height: 60%;
+  margin-top: 20%;
+  border: solid 4px grey;
+  border-radius: 5px;
+  background-color: white;
+}
+.current-left {
+   
+  float: left;
+  width: 25%;
+  height: 60%;
+  margin-left: 1%;
+  margin-top: 20%;
+  border: solid 4px grey;
+  border-radius: 5px;
+  background-color: white;
+}
+
+.hide-btns{
+    visibility: visible;
+}
+#your-turn {
+    visibility: visible;
+}
+
+.center {
+  text-align: center
+}
+.card-wrapper {
+height: 44vh;
+}

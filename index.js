@@ -264,48 +264,27 @@ app.get("/join", (request, response) => {
         });
     });
 });
-// });
+
+
 
 app.get("/multi/:gameid", (request, response) => {
-  const usrID = request.session.userid;
-  if (usrID === undefined) {
-    response.redirect("/login");
-  }
+
+      response.render("multi");
+
 });
 
-app.post("/multi/:gameid", (request, response) => {
-  knex("multigame")
-    .where(
-      "id",
-      gameid
-        .whereNot("user1_name", request.session.userid)
-        .andWhereNot("user2_name", request.session.userid)
-    )
-    .then(function(result) {
-      console.log("result");
-      knex("multigame")
-        .update({
-          multi_attacker: result
-        })
-        .then(result => {
-          response.status(200);
-        });
-      response.render("multi/:gameid");
-    });
-});
-
-app.get("/multi/attacker", (request, response) => {
-  knex("multigame")
-    .where("multi_attacker", request.session.userid)
-    .then(function(result) {
-      // response.send
-      console.log(result === request.session.userid);
-    });
-});
+// app.get("/multi/attack", (request, response) => {
+//   knex("multigame")
+//     .where("multi_attacker", request.session.userid)
+//     .then(function(result) {
+//       // response.send
+//       console.log(result === request.session.userid);
+//     });
+// });
 
 app.get("/wild", (request, response) => {
   // renders the GAME PAGE FOR WILD
-  response.render("wild");
+  response.render("/wild");
 });
 
 app.post("/register", (request, response) => {

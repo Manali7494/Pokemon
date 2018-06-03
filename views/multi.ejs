@@ -3,34 +3,58 @@
 
 <head>
     <%- include ./partials/_header.ejs %>
-        <script src="/scripts/async-polling.min.js"></script>
-        <script src="/scripts/check.js" async></script>
-        <script src="/scripts/pending.js" async></script>
-
+        <link rel="stylesheet" type="text/css" href="/styles/layout.css">
+        <link rel="stylesheet" type="text/css" href="/styles/cards.css">
+        <link rel="stylesheet" type="text/css" href="/styles/multi.css">
 </head>
 
 <body>
-    <%- include ./partials/_nav.ejs %>
-        <br><form action="/multi" method="POST">
-            <button id="polling" type="submit">Send</button>
-        </form>
-      
-<h2 id="message">Hi this is a message</h2>
-        <!-- <script>
-            var i = 0;
+    <div class="container-profile">
+        <div class="wrap-profile">
 
-            AsyncPolling(function (end) {
-                i += 1;
-                if (i === 3) {
-                    return end(console.log("reached 3"));
-                }
-                if (i >= 5) {
-                    this.stop();
-                    return end(console.log("reached 5"));
-                }
-                end(console.log("ENDED THE STUFF"));
-            }, 1000).run()
-        </script> -->
+
+            <div class="card-wrapper">
+
+                <div class="opponent">
+                    <img class="element" src="/images/grass.png" alt="element">
+                    <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/002.png" alt="Pokemon">
+                    <h3>
+                        <div class="hp">HP:100</div>
+                        <div class="attack">AP:20</div>
+                    </h3>
+                </div>
+
+
+            </div>
+
+            <h2 class="center" id="your-turn">Your Turn</h2>
+            <h2 class="center" id="opponents-turn">Opponents Turn</h2>
+
+
+
+            <div class="card-wrapper">
+                <div class="current-left hide-btns">
+                    <form action="">
+                        <button>Attack</button>
+                    </form>
+                </div>
+                <div class="active">
+                    <img class="element" src="/images/grass.png" alt="element">
+                    <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/002.png" alt="Pokemon">
+                    <h3>
+                        <div class="hp">HP:100</div>
+                        <div class="attack">AP:20</div>
+                    </h3>
+                </div>
+
+                <div class="current-right hide-btns">
+                    <form action="">
+                        <button>Runaway</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

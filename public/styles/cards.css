@@ -14,7 +14,7 @@
 .current-right {
   display: inline-block;
   width: 35%;
-  margin-left: 14%;
+  margin-right: 14%;
   border: solid 4px grey;
   border-radius: 5px;
   background-color: white;
