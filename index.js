@@ -1,4 +1,3 @@
-
 const express = require("express");
 
 const cookieSession = require("cookie-session");
@@ -13,11 +12,11 @@ const knex = require("knex")(knexConfig);
 
 // app.use(knexLogger(knex));
 
-
 const app = express();
-const PORT = process.env.PORT || 8071;
+const PORT = process.env.PORT || 8070;
 
-app.use(cookieSession({
+app.use(
+  cookieSession({
     secret: "userID"
   })
 );
@@ -42,8 +41,6 @@ app.use(express.static("public"));
 //     res.send(usersid);
 //   });
 // });
-
-
 
 // INSERT ROW and send stuff
 // app.post('/pokemons', function(req, res){
@@ -179,67 +176,94 @@ app.post("/pending", (request, response) => {
 });
 
 app.get("/pending", (request, response) => {
-  knex.select('id','user1_name').from('multigame').where('user1_name',request.session.userid).andWhere('user2_name','').then(function(result){
-    console.log(result)
-    if(result.length !== 0){
-    const gameid = (result[0].id);
-    const plyr1 = (result[0].user1_name);
-    const me = request.session.userid;
-    if(plyr1 === me){
-      console.log("I'm going to the game!")
-   return response.redirect('/multi/:gameid')
-    }
-}
- // create a game with me as user 1 and attacker
-    if(result.length === 0){
-      knex('multigame').insert({user1_name: request.session.userid, user1_pokedex_num: 7, user1_poke_health: 100, user2_name: '', user2_pokedex_num: 1, user2_poke_health: 100, multi_winner: '' , multi_attacker: request.session.userid}).then(result => {
-        response.status(200);
-      });
-      console.log('I create a game');
-      return response.redirect("/pending")
-    }
-    // add me as player 2
-    if(result.length !== 0){
-      const gameid = (result[0].id);
-     knex.select('id',gameid).from('multigame').update({user2_name: request.session.userid,  user2_pokedex_num: 4}).then(result => {
-      response.status(200);
+  knex
+    .select("id", "user1_name")
+    .from("multigame")
+    .where("user2_name", "")
+    .then(function(result) {
+      console.log(result);
+
+      if (result.length !== 0) {
+        const gameid = result[0].id;
+        const plyr1 = result[0].user1_name;
+        const me = request.session.userid;
+        if (plyr1 !== me) {
+          knex
+            .select("id", gameid)
+            .from("multigame")
+            .update({
+              user2_name: request.session.userid,
+              user2_pokedex_num: 4
+              //  NEED TO UPDATE THIS!!!!
+            })
+            .then(result => {
+              response.status(200);
+            });
+          return response.redirect("/multi/:" + gameid);
+        }
+        if (plyr1 === me) {
+          console.log("I'm going to the game!");
+          return response.redirect("/multi/:gameid");
+        }
+      }
+
+      // create a game with me as user 1 and attacker
+      if (result.length === 0) {
+        knex("multigame")
+          .insert({
+            user1_name: request.session.userid,
+            user1_pokedex_num: 7,
+            user1_poke_health: 100,
+            user2_name: "",
+            user2_pokedex_num: 1,
+            user2_poke_health: 100,
+            multi_winner: "",
+            multi_attacker: request.session.userid
+          })
+          .then(result => {
+            response.status(200);
+          });
+        console.log("I create a game");
+        return response.redirect("/pending");
+      }
     });
-    return response.redirect("/multi/:"+gameid)
-    }
-
-    // if (result !== null)
-  //   knex('multigame').update({
-  //   multi_attacker: result 
-  // }).then(result => {response.status(200)})
-})
 });
-
 
 app.get("/multi/:gameid", (request, response) => {
   const usrID = request.session.userid;
   if (usrID === undefined) {
     response.redirect("/login");
   }
-
 });
 
-
-
 app.post("/multi/:gameid", (request, response) => {
-  knex('multigame').where('id', gameid.whereNot('user1_name',request.session.userid).andWhereNot('user2_name',request.session.userid)).then(function(result){
-    console.log('result')
-    knex('multigame').update({
-    multi_attacker: result 
-  }).then(result => {response.status(200)})
-  response.render("multi/:gameid");
-})
+  knex("multigame")
+    .where(
+      "id",
+      gameid
+        .whereNot("user1_name", request.session.userid)
+        .andWhereNot("user2_name", request.session.userid)
+    )
+    .then(function(result) {
+      console.log("result");
+      knex("multigame")
+        .update({
+          multi_attacker: result
+        })
+        .then(result => {
+          response.status(200);
+        });
+      response.render("multi/:gameid");
+    });
 });
 
 app.get("/multi/attacker", (request, response) => {
-  knex('multigame').where('multi_attacker',request.session.userid).then(function(result){
-    // response.send
-    console.log((result===request.session.userid));
-})
+  knex("multigame")
+    .where("multi_attacker", request.session.userid)
+    .then(function(result) {
+      // response.send
+      console.log(result === request.session.userid);
+    });
 });
 
 app.get("/wild", (request, response) => {
@@ -248,25 +272,29 @@ app.get("/wild", (request, response) => {
 });
 
 app.post("/register", (request, response) => {
-
-if (request.body.username !== "" && request.body.email !== "" && request.body.pass !== ""){
+  if (
+    request.body.username !== "" &&
+    request.body.email !== "" &&
+    request.body.pass !== ""
+  ) {
     let rand = Math.round(Math.random() * 2);
-    let array = [1,4,7];
+    let array = [1, 4, 7];
     let num = array[rand];
 
-    knex('users').insert({
-      username: request.body.username,
-      email: request.body.email,
-      password: request.body.pass,
-      pokedex_num: num
-    }).then(result => {
-      response.status(200);
-    });
-    request.session['userid'] = request.body.username;
-    response.redirect('/profile');
-  } else{
-    response.send('Please enter a valid username, email, and password');
-
+    knex("users")
+      .insert({
+        username: request.body.username,
+        email: request.body.email,
+        password: request.body.pass,
+        pokedex_num: num
+      })
+      .then(result => {
+        response.status(200);
+      });
+    request.session["userid"] = request.body.username;
+    response.redirect("/profile");
+  } else {
+    response.send("Please enter a valid username, email, and password");
   }
 });
 app.listen(PORT, () => {
