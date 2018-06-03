@@ -6,6 +6,29 @@
 
         <link rel="stylesheet" type="text/css" href="styles/layout.css">
         <link rel="stylesheet" type="text/css" href="styles/cards.css">
+
+    <style>
+
+    #statsTable{
+        height: 250px;
+    }
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+    </style>
+
 </head>
 
 <body>
@@ -14,51 +37,102 @@
             <span class="wrap-profile-form-btn">
                 <div class="profile-form-bgbtn"></div>
                 <a href="/login" class="profile-form-btn">
-                    Play Pokemon
+                    Play Game
                 </a>
             </span>
             <span class="wrap-profile-form-btn">
                 <div class="profile-form-bgbtn"></div>
-                <a href="/login" class="profile-form-btn">
+                <button id='stats' class="profile-form-btn">
                     Your Stats
-                </a>
+                </button>
             </span>
+
+
             <span class="wrap-profile-form-btn">
                 <div class="profile-form-bgbtn"></div>
-                <a href="/login" class="profile-form-btn">
-                    Your Rank
-                </a>
+                <form method='POST' action= "/logout">
+                <button type='submit' value='logout' class="profile-form-btn">
+                    Logout
+                </button>
+                </form>
             </span>
+
             <div id="central">
                 <span class="wrap-game-button">
                     <div class="game-bgbtn"></div>
-                    <a href="/login" class="game-btn">
-                        Wild
-                    </a>
-                </span>
-                <span class="wrap-game-button">
-                    <div class="game-bgbtn"></div>
-                    <form class="game-btn" action="/join" method="GET">
+
+                    <form class="game-btn" action="/pending" method="GET">
+
                     <button type="submit" id="checkgame">
                         GAME
                     </button>
                 </form>
                 </span>
             </div>
+            <div style="overflow-y:scroll" id="statsTable">
+                <div class='numWins'> Number of Wins</div>
+              <table>
+                <tr>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Points</th>
+                  <th>Points</th>
+                </tr>
+                <tr>
+                  <td>Jill</td>
+                  <td>Smith</td>
+                  <td>50</td>
+                  <td>50</td>
+                </tr>
+                <tr>
+                  <td>Eve</td>
+                  <td>Jackson</td>
+                  <td>94</td>
+                  <td>94</td>
+                </tr>
+                <tr>
+                  <td>Adam</td>
+                  <td>Johnson</td>
+                  <td>67</td>
+                  <td>67</td>
+                </tr>
+                    <tr>
+                  <td>Adam</td>
+                  <td>Johnson</td>
+                  <td>67</td>
+                  <td>67</td>
+                </tr>
+                <tr>
+                  <td>Adam</td>
+                  <td>Johnson</td>
+                  <td>67</td>
+                  <td>67</td>
+                </tr>
+                <tr>
+                  <td>Adam</td>
+                  <td>Johnson</td>
+                  <td>67</td>
+                  <td>67</td>
+                </tr>
+
+              </table>
+            </div>
+
             <div class="card-wrapper">
                 <!-- <div class="current-left">
                     <img class="element" src="images/grass.png" alt="element">
                     <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/009.png" alt="Pokemon">
                     <h3>
-                            <div class="hp">HP:100</div> 
+                            <div class="hp">HP:100</div>
                             <div class="attack">AP:20</div>
                     </h3>
                 </div> -->
+                <br>
                 <div class="active">
                     <img class="element" src="images/grass.png" alt="element">
                     <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/005.png" alt="Pokemon">
                     <h3>
-                            <div class="hp">HP:100</div> 
+                            <div class="hp">HP:100</div>
                             <div class="attack">AP:20</div>
                     </h3>
                 </div>
@@ -66,7 +140,7 @@
                     <img class="element" src="images/grass.png" alt="element">
                     <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/002.png" alt="Pokemon">
                     <h3>
-                        <div class="hp">HP:100</div> 
+                        <div class="hp">HP:100</div>
                         <div class="attack">AP:20</div>
                     </h3>
                 </div> -->

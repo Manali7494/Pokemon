@@ -142,12 +142,11 @@ app.post("/login", (request, response) => {
         response.send("Please log in with correct username and password");
       }
     });
+  });
   app.post("/logout", (request, response) => {
     request.session = null;
     response.redirect("/login");
   });
-});
-
 app.get("/register", (request, response) => {
   const usrID = request.session.userid;
   if (usrID !== undefined) {
@@ -157,22 +156,9 @@ app.get("/register", (request, response) => {
   }
 });
 
-app.get("/stats", (request, response) => {
-  // / WHAT IS THE DIFFERENENCE BETWEEN STATS AND RANK????
-  response.render("stats");
-});
-
 app.get("/rank", (request, response) => {
-  response.render("rank");
-  // <---MULTIRANK--->
-  // NEED TO LOOP through to find usr1 and display only their information
-  // SELECT user1_name,user2_name,multi_winner from multigame where multi_winner = 'Usr1';
 
-  // <---WILD RANK --->
-  // SELECT () from users JOIN wildgame ON users.username = wildgame.username WHERE wild_win='t';
-  // COUNT --> SELECT COUNT(wild_win) from users JOIN wildgame ON users.username = wildgame.username WHERE wild_win='t';
-  // DISPLAYS THE WILD POKEMON ID --> SELECT users.username, wild_id from users JOIN wildgame ON users.username = wildgame.username WHERE wild_win='t';
-});
+
 
 
 app.get("/join", (request, response) => {

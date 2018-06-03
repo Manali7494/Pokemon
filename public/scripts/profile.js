@@ -1,6 +1,6 @@
 
 
-function createElement(data) {
+/*function createElement(data) {
   const pokedexNum = data.something;
   const tregavatar =  data.something;
   const thandle =  data.something;
@@ -15,13 +15,14 @@ function createElement(data) {
     +pokedexNum+
       `.png" alt="Pokemon">
       <h3>
-              <div class="hp">HP:100</div> 
+              <div class="hp">HP:100</div>
               <div class="attack">AP:20</div>
       </h3>
   </div>`
   );
   return $cards;
 }
+
 
 
 createElement(data);
@@ -82,3 +83,4 @@ $("#compose").on("click", function() {
 });
 
 const input = document.getElementById("myInput");
+*/
