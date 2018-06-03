@@ -11,9 +11,12 @@ const knex = require("knex")(knexConfig);
 // const knexLogger  = require('knex-logger');
 
 // app.use(knexLogger(knex));
+function result() {
+  return Math.round(Math.random() * 100) + 7900;
+}
 
 const app = express();
-const PORT = process.env.PORT || 8070;
+const PORT = process.env.PORT || result();
 
 app.use(
   cookieSession({
@@ -175,59 +178,93 @@ app.post("/pending", (request, response) => {
   // LOCATION WHERE IT REACHES ONCE THE USER CLICKS THE PENDING BUTTON!
 });
 
-app.get("/pending", (request, response) => {
+app.get("/join", (request, response) => {
+  // check if there are any games with empty spots
+
   knex
-    .select("id", "user1_name")
+    .select("id", "user1_name", "user2_name", "multi_winner")
     .from("multigame")
     .where("user2_name", "")
+    .orWhere("user2_name", request.session.userid)
+    .andWhere("multi_winner", "")
+    .orWhere("user1_name", request.session.userid)
+    .andWhere("multi_winner", "")
     .then(function(result) {
-      console.log(result);
+      console.log("Current player:" + request.session.userid);
 
-      if (result.length !== 0) {
-        const gameid = result[0].id;
-        const plyr1 = result[0].user1_name;
-        const me = request.session.userid;
-        if (plyr1 !== me) {
-          knex
-            .select("id", gameid)
-            .from("multigame")
-            .update({
-              user2_name: request.session.userid,
-              user2_pokedex_num: 4
-              //  NEED TO UPDATE THIS!!!!
-            })
-            .then(result => {
-              response.status(200);
-            });
-          return response.redirect("/multi/:" + gameid);
-        }
-        if (plyr1 === me) {
-          console.log("I'm going to the game!");
-          return response.redirect("/multi/:gameid");
-        }
-      }
+      // get user table info for pknum and username
+      knex("users")
+        .where({ username: request.session.userid })
+        .then(function(data) {
+          let usrnm = data[0].username;
+          let pknum = data[0].pokedex_num;
 
-      // create a game with me as user 1 and attacker
-      if (result.length === 0) {
-        knex("multigame")
-          .insert({
-            user1_name: request.session.userid,
-            user1_pokedex_num: 7,
-            user1_poke_health: 100,
-            user2_name: "",
-            user2_pokedex_num: 1,
-            user2_poke_health: 100,
-            multi_winner: "",
-            multi_attacker: request.session.userid
-          })
-          .then(result => {
-            response.status(200);
-          });
-        console.log("I create a game");
-        return response.redirect("/pending");
-      }
+          // if there is a game and it is not finished
+
+          if (result.length !== 0) {
+            let gameid = result[0].id;
+            const plyr1 = result[0].user1_name;
+            const me = request.session.userid;
+
+            // run this to set every winner to a value... yes I'm a juvenile.
+
+            // knex("multigame")
+            // .update({
+            //   multi_winner: "poopbomb"
+
+            // })
+            // .then(something => {
+            //   response.status(200);
+            // });
+
+            // if player1 isn't me than add me and my pokemon to player 2
+
+            if (plyr1 !== me) {
+              knex("multigame")
+                .where({ id: gameid })
+                .update({
+                  user2_name: usrnm,
+                  user2_pokedex_num: pknum
+                })
+                .then(something => {
+                  response.status(200);
+                });
+              console.log("player 2 going to game " + gameid);
+              return response.redirect("/multi/:" + gameid);
+            }
+
+            // if player1 is me than take me to the game
+
+            if (plyr1 === me) {
+              console.log("player 1 going to game " + gameid);
+              return response.redirect("/multi/:gameid");
+            }
+          }
+
+          // if no games than create a game with me as user 1 and attacker
+
+          if (result.length === 0) {
+            knex("multigame")
+              .insert({
+                user1_name: usrnm,
+                user1_pokedex_num: pknum,
+                user1_poke_health: 100,
+                user2_name: "",
+                user2_pokedex_num: 999,
+                user2_poke_health: 100,
+                multi_winner: "",
+                multi_attacker: usrnm
+              })
+              .then(result => {
+                response.status(200);
+              });
+            console.log("I create a game");
+            return response.redirect("/pending");
+          }
+        });
     });
 });
+// });
 
 app.get("/multi/:gameid", (request, response) => {
   const usrID = request.session.userid;
