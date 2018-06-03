@@ -2,15 +2,16 @@
 
 
 
-$("#polling").on("click", function(event) {
+$("#attack").on("click", function(event) {
   let myturn= '';
   
   $.ajax({
-    url: "/multi/attacker",
+    url: "/multi/attack",
     success(data) {
       myturn = data;
     }
   });
+  
   console.log(attacker)
   AsyncPolling(function(end) {
     $("#message").text(`The attacker is `,+attacker);

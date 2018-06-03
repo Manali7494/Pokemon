@@ -174,9 +174,6 @@ app.get("/rank", (request, response) => {
   // DISPLAYS THE WILD POKEMON ID --> SELECT users.username, wild_id from users JOIN wildgame ON users.username = wildgame.username WHERE wild_win='t';
 });
 
-app.post("/pending", (request, response) => {
-  // LOCATION WHERE IT REACHES ONCE THE USER CLICKS THE PENDING BUTTON!
-});
 
 app.get("/join", (request, response) => {
   // check if there are any games with empty spots
@@ -272,14 +269,55 @@ app.get("/multi/:gameid", (request, response) => {
       response.render("multi");
 });
 
-// app.get("/multi/attack", (request, response) => {
-//   knex("multigame")
-//     .where("multi_attacker", request.session.userid)
-//     .then(function(result) {
-//       // response.send
-//       console.log(result === request.session.userid);
-//     });
-// });
+app.get("/pokemon", (request, response) => {
+  
+  const usrID = request.session.userid;
+  if (usrID !== undefined) {
+  knex.select().from("pokemon")
+    .then(function(result) {
+      console.log('accessing pokemon database');
+      return response.send(result)
+    });
+  } else {
+    response.redirect("/login");
+  }
+});
+
+app.get("/myusername", (request, response) => {
+  const usrID = request.session.userid;
+  if (usrID !== undefined) {
+      return response.send(usrID)
+  } 
+    response.redirect("/login");
+});
+
+app.get("/multigame", (request, response) => {
+  
+  const usrID = request.session.userid;
+  if (usrID !== undefined) {
+  knex.select().from("multigame")
+    .then(function(result) {
+      console.log('accessing multigame database');
+      return response.send(result)
+    });
+  } else {
+    response.redirect("/login");
+  }
+});
+
+app.get("/user", (request, response) => {
+  
+  const usrID = request.session.userid;
+  if (usrID !== undefined) {
+  knex.select().from("users").where('username',usrID)
+    .then(function(result) {
+      console.log('accessing user database');
+      return response.send(result)
+    });
+  } else {
+    response.redirect("/login");
+  }
+});
 
 app.get("/wild", (request, response) => {
   // renders the GAME PAGE FOR WILD
