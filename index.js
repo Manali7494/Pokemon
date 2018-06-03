@@ -13,7 +13,7 @@ const knex = require("knex")(knexConfig);
 // app.use(knexLogger(knex));
 
 const app = express();
-const PORT = process.env.PORT || 8070;
+const PORT = process.env.PORT || 8080;
 
 app.use(
   cookieSession({
@@ -139,12 +139,11 @@ app.post("/login", (request, response) => {
         response.send("Please log in with correct username and password");
       }
     });
+  });
   app.post("/logout", (request, response) => {
     request.session = null;
     response.redirect("/login");
   });
-});
-
 app.get("/register", (request, response) => {
   const usrID = request.session.userid;
   if (usrID !== undefined) {
@@ -154,79 +153,20 @@ app.get("/register", (request, response) => {
   }
 });
 
-app.get("/stats", (request, response) => {
-  // / WHAT IS THE DIFFERENENCE BETWEEN STATS AND RANK????
-  response.render("stats");
-});
-
 app.get("/rank", (request, response) => {
-  response.render("rank");
-  // <---MULTIRANK--->
-  // NEED TO LOOP through to find usr1 and display only their information
-  // SELECT user1_name,user2_name,multi_winner from multigame where multi_winner = 'Usr1';
 
-  // <---WILD RANK --->
-  // SELECT () from users JOIN wildgame ON users.username = wildgame.username WHERE wild_win='t';
-  // COUNT --> SELECT COUNT(wild_win) from users JOIN wildgame ON users.username = wildgame.username WHERE wild_win='t';
-  // DISPLAYS THE WILD POKEMON ID --> SELECT users.username, wild_id from users JOIN wildgame ON users.username = wildgame.username WHERE wild_win='t';
+  let user = request.session.userid;
+  if (user !== undefined){
+  knex.select('user1_name', 'user2_name', 'multi_winner').from('multigame').where('user1_name', user).then(data => {
+  let gameDetails = data[0];
+  knex('multigame').count('multi_winner').where('multi_winner',user).then(count => {
+    let numWins = count[0].count;
+    console.log(counter);
+    console.log(dat);
+  });
 });
 
-app.post("/pending", (request, response) => {
-  // LOCATION WHERE IT REACHES ONCE THE USER CLICKS THE PENDING BUTTON!
-});
-
-app.get("/pending", (request, response) => {
-  knex
-    .select("id", "user1_name")
-    .from("multigame")
-    .where("user2_name", "")
-    .then(function(result) {
-      console.log(result);
-
-      if (result.length !== 0) {
-        const gameid = result[0].id;
-        const plyr1 = result[0].user1_name;
-        const me = request.session.userid;
-        if (plyr1 !== me) {
-          knex
-            .select("id", gameid)
-            .from("multigame")
-            .update({
-              user2_name: request.session.userid,
-              user2_pokedex_num: 4
-              //  NEED TO UPDATE THIS!!!!
-            })
-            .then(result => {
-              response.status(200);
-            });
-          return response.redirect("/multi/:" + gameid);
-        }
-        if (plyr1 === me) {
-          console.log("I'm going to the game!");
-          return response.redirect("/multi/:gameid");
-        }
-      }
-
-      // create a game with me as user 1 and attacker
-      if (result.length === 0) {
-        knex("multigame")
-          .insert({
-            user1_name: request.session.userid,
-            user1_pokedex_num: 7,
-            user1_poke_health: 100,
-            user2_name: "",
-            user2_pokedex_num: 1,
-            user2_poke_health: 100,
-            multi_winner: "",
-            multi_attacker: request.session.userid
-          })
-          .then(result => {
-            response.status(200);
-          });
-        console.log("I create a game");
-        return response.redirect("/pending");
-      }
-    });
+  }
 });
 
 app.get("/multi/:gameid", (request, response) => {

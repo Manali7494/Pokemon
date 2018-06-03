@@ -7,22 +7,22 @@
 
 @font-face {
   font-family: fantasy;
-  src: url('../fonts/fantasy.ttf'); 
+  src: url('../fonts/fantasy.ttf');
 }
 
 @font-face {
   font-family: Poppins-Medium;
-  src: url('../fonts/Poppins-Medium.ttf'); 
+  src: url('../fonts/Poppins-Medium.ttf');
 }
 
 @font-face {
   font-family: Poppins-Bold;
-  src: url('../fonts/Poppins-Bold.ttf'); 
+  src: url('../fonts/Poppins-Bold.ttf');
 }
 
 @font-face {
   font-family: Poppins-SemiBold;
-  src: url('../fonts/Poppins-SemiBold.ttf'); 
+  src: url('../fonts/Poppins-SemiBold.ttf');
 }
 
 
@@ -33,8 +33,8 @@
 [ RESTYLE TAG ]*/
 
 * {
-	margin: 0px; 
-	padding: 0px; 
+	margin: 0px;
+	padding: 0px;
 	box-sizing: border-box;
 }
 
@@ -161,7 +161,7 @@ iframe {
 }
 
 .container-login100 {
-  width: 100%;  
+  width: 100%;
   min-height: 100%;
   display: -webkit-box;
   display: -webkit-flex;
@@ -172,7 +172,7 @@ iframe {
   justify-content: center;
   align-items: center;
   padding: 15px;
-  background: #f2f2f2;  
+  background: #f2f2f2;
 }
 
 .wrap-login100 {
@@ -229,12 +229,12 @@ iframe {
 
   display: block;
   width: 100%;
-  height: 45px;
+  height: 15px;
   background: transparent;
   padding: 0 5px;
 }
 
-/*---------------------------------------------*/ 
+/*---------------------------------------------*/
 .focus-input100 {
   position: absolute;
   display: block;
@@ -255,7 +255,7 @@ iframe {
   height: 3px;
 
   -webkit-transition: all 1s;
-  
+
   transition: all 1s;
   background: -webkit-linear-gradient(left, #fc5640a4, #d6ff21, #42ff21,#22be0eb4);
   background: -o-linear-gradient(left, #ff2121, #e7fd21);
@@ -289,7 +289,7 @@ iframe {
 
 .input100:focus + .focus-input100::before {
   width: 100%;
-  
+
 }
 
 .has-val.input100 + .focus-input100::after {
