@@ -34,13 +34,20 @@
   display: inline-block;
   width: 45%;
   z-index: 5;
-  border: solid 5px tomato;
+  border: solid 5px rgb(21, 185, 21);
   border-radius: 5px;
   background-color: white;
 }
+
+@media (max-width: 450px) {
+  .active {
+  width: 60%;
+  right:20%;
+  }
+  }
 @media (max-width: 450px) {
 .active {
-height: 290px;
+height: 280px;
 }
 }
 @media (max-width: 370px) {
