@@ -34,7 +34,7 @@
   display: inline-block;
   width: 45%;
   z-index: 5;
-  border: solid 5px grey;
+  border: solid 5px tomato;
   border-radius: 5px;
   background-color: white;
 }

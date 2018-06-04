@@ -1,6 +1,6 @@
 {
-  "user":"andrew",
-  "password":"andrew",
+  "user":"development",
+  "password":"development",
   "database":"pokemon",
   "hostname":"localhost",
   "port": 5432,
