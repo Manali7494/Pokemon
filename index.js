@@ -16,7 +16,7 @@ function result() {
 }
 
 const app = express();
-const PORT = process.env.PORT || result();
+const PORT = process.env.PORT || 8080;
 
 app.use(
   cookieSession({
