@@ -13,15 +13,9 @@ $.get("/users", function(usersdata) {
         const user2hp = game[0].user2_poke_health;
         const winner = game[0].multi_winner;
 
-
         function refresh() {
           window.location = window.location;
         }
-
-  
-
-        
-
 
         if (user1hp <= 0) {
           $.post("/currentgame", { multi_winner: user2 });
@@ -85,14 +79,14 @@ $.get("/users", function(usersdata) {
           oppzeros = "";
         }
 
-        if(opponent !== "")
-        $("#opppoke").attr(
-          "src",
-          "https://assets.pokemon.com/assets/cms2/img/pokedex/full/" +
-            oppzeros +
-            opppokedexnumber +
-            ".png"
-        );
+        if (opponent !== "")
+          $("#opppoke").attr(
+            "src",
+            "https://assets.pokemon.com/assets/cms2/img/pokedex/full/" +
+              oppzeros +
+              opppokedexnumber +
+              ".png"
+          );
 
         if (myuser === attacker && opponent !== "") {
           $(".hide-btns").css("visibility", "visible");
@@ -109,26 +103,36 @@ $.get("/users", function(usersdata) {
         }
         $(".active .hp").text("HP: " + myhp);
         $(".opponent .hp").text("HP: " + opphp);
-        window.location
+        window.location;
 
-        
         // if (winner === "" && attacker !== myuser || winner === "" && opponent === "") {
         //   setTimeout(refresh, 2000);
         // }
 
-
-        AsyncPolling(function (end) {
+        AsyncPolling(function(end) {
           let current;
           $.get("/currentgame", function(result) {
-            current = result[0].multi_attacker
-            if (attacker !== current) {
-              refresh()
-                return end(console.log("new attacker!"));
-            }          
+            if (result.length === 0) {
+              window.location.replace("/lastgame");
+            }
+            current = result[0].multi_attacker;
+
+            if (attacker !== current || result[0].multi_winner !== "") {
+              refresh();
+              return end(console.log("new attacker!"));
+            }
+
+            if (
+              result[0].user1_name !== "" &&
+              result[0].user2_name !== "" &&
+              opponent === ""
+            ) {
+              refresh();
+              return end(console.log("waiting"));
+            }
             end(console.log("running"));
           });
-          }, 1000).run()
-
+        }, 1000).run();
 
         const attack = Math.random() * 20 + 10;
 
