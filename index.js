@@ -16,7 +16,7 @@ function result() {
 }
 
 const app = express();
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || result();
 
 app.use(
   cookieSession({
@@ -394,6 +394,22 @@ app.get("/multigame", (request, response) => {
 });
 
 //  >>>>>>>>>>>>>>>>> GET ALL of current users information (password) <<<<<<<<<<<<<<<<<<//
+
+
+app.get("/users", (request, response) => {
+  const usrID = request.session.userid;
+  if (usrID !== undefined) {
+    knex
+      .select()
+      .from("users")
+      .then(function(result) {
+        console.log("accessing user database");
+        return response.send(result);
+      });
+  } else {
+    response.redirect("/login");
+  }
+});
 
 app.get("/user", (request, response) => {
   const usrID = request.session.userid;

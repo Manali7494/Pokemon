@@ -1,3 +1,5 @@
+$.get("/users", function(usersdata) {
+$.get("/user", function(userdata) {
 $.get("/myusername", function(myuser) {
   $.get("/currentgame", function(game) {
     if(game.length === 0){
@@ -19,23 +21,63 @@ $.get("/myusername", function(myuser) {
       $.post("/currentgame", { multi_winner: user1 });
       window.location.replace("/lastgame");
     }
-      
-
-
-    let center;
-    if (attacker === myuser) {
-      center = "your turn";
-    } else {
-      center = attacker + "'s turn!";
+    const pokedexnumber = (userdata[0].pokedex_num).toString()
+    let zeros;
+    if (pokedexnumber.length === 1){
+      zeros ="00"
     }
-    $("#your-turn").text("It's " + center);
-
-    let opponent;
-    if (user1 !== myuser) {
-      opponent = user1;
-    } else {
-      opponent = user2;
+    if (pokedexnumber.length === 2) {
+      zeros ="0"
     }
+    if (pokedexnumber.length === 3) {
+      zeros = ""
+    }
+
+    // alert(zeros)
+
+
+   $("#mypoke").attr("src","https://assets.pokemon.com/assets/cms2/img/pokedex/full/"+zeros+pokedexnumber+".png")
+   let center;
+   if (attacker === myuser) {
+     center = "your turn";
+   } else {
+     center = attacker + "'s turn!";
+   }
+   $("#your-turn").text("It's " + center);
+
+   let opponent;
+   if (user1 !== myuser) {
+     opponent = user1;
+   } else {
+     opponent = user2;
+   }
+   let opppokedexnumber = ""; 
+ 
+   for(let i = 0; i < usersdata.length; i += 1){
+    if(usersdata[i].username === opponent){
+      opppokedexnumber = usersdata[i].pokedex_num
+    }
+   }
+
+
+
+   let oppzeros;
+   if (pokedexnumber.length === 1){
+     oppzeros ="00"
+   }
+   if (pokedexnumber.length === 2) {
+     oppzeros ="0"
+   }
+   if (pokedexnumber.length === 3) {
+     oppzeros = ""
+   }
+
+  //  alert(zeros)
+
+
+  $("#opppoke").attr("src","https://assets.pokemon.com/assets/cms2/img/pokedex/full/"+oppzeros+opppokedexnumber+".png")
+
+    
     if (myuser === attacker && opponent !== "") {
       $(".hide-btns").css("visibility", "visible");
     }
@@ -81,4 +123,6 @@ $.get("/myusername", function(myuser) {
       location.reload();
     });
   });
+});
+});
 });
