@@ -217,7 +217,7 @@ app.get("/join", (request, response) => {
 
             if (plyr1 === me) {
               console.log("player 1 going to game " + gameid);
-              return response.redirect("/multi/:gameid");
+              return response.redirect("/multi");
             }
           }
 
@@ -245,7 +245,7 @@ app.get("/join", (request, response) => {
     });
 });
 
-app.get("/multi/:gameid", (request, response) => {
+app.get("/multi", (request, response) => {
   response.render("multi");
 });
 
@@ -278,7 +278,7 @@ app.get("/myusername", (request, response) => {
   response.redirect("/login");
 });
 
-//  >>>>>>>>>>>>>>>>> GET multigamse stats per user <<<<<<<<<<<<<<<<<<//
+//  >>>>>>>>>>>>>>>>> GET multigame stats per user <<<<<<<<<<<<<<<<<<//
 
 app.get("/multistats", (request, response) => {
   const usrID = request.session.userid;
@@ -302,7 +302,12 @@ app.get("/multistats", (request, response) => {
 app.get("/multirank", (request, response) => {
   const usrID = request.session.userid;
   if (usrID !== undefined) {
-    knex.select("multi_winner as username").from("multigame").whereNot("multi_winner","").count('multi_winner as wins').groupBy("multi_winner")
+    knex
+      .select("multi_winner as username")
+      .from("multigame")
+      .whereNot("multi_winner", "")
+      .count("multi_winner as wins")
+      .groupBy("multi_winner")
       .then(function(result) {
         console.log("accessing multigame database");
         return response.send(result);
@@ -312,6 +317,41 @@ app.get("/multirank", (request, response) => {
   }
 });
 
+//  >>>>>>>>>>>>>>>>> GET currentgame <<<<<<<<<<<<<<<<<<//
+
+app.get("/currentgame", (request, response) => {
+  const usrID = request.session.userid;
+  if (usrID !== undefined) {
+    knex
+      .select()
+      .from("multigame")
+      .where("user1_name", usrID)
+      .andWhere("multi_winner", "")
+      .orWhere("user2_name", usrID)
+      .andWhere("multi_winner", "")
+      .then(function(result) {
+        console.log("accessing multigame database");
+        return response.send(result);
+      });
+  } else {
+    response.redirect("/login");
+  }
+});
+
+
+
+app.post("/currentgame", (request, response) => {
+  const usrID = request.session.userid;
+  knex("multigame")
+    .where("user1_name", usrID)
+    .andWhere("multi_winner", "")
+    .orWhere("user2_name", usrID)
+    .andWhere("multi_winner", "")
+    .update(request.body)    
+    .then(function(res) {
+      
+    });
+});
 //  >>>>>>>>>>>>>>>>> GET multigame <<<<<<<<<<<<<<<<<<//
 
 app.get("/multigame", (request, response) => {

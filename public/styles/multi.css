@@ -58,7 +58,7 @@
 }
 
 .hide-btns{
-    visibility: visible;
+    visibility: hidden;
 }
 #your-turn {
     visibility: visible;

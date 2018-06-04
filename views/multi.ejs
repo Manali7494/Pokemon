@@ -3,10 +3,13 @@
 
 <head>
     <%- include ./partials/_header.ejs %>
-    <script type="text/javascript" src="/scripts/app.js" async></script>
+    <script src="/scripts/async-polling.min.js"></script>
+        <script src="/scripts/check.js" async></script>
+
         <link rel="stylesheet" type="text/css" href="/styles/layout.css">
         <link rel="stylesheet" type="text/css" href="/styles/cards.css">
         <link rel="stylesheet" type="text/css" href="/styles/multi.css">
+        
 </head>
 
 <body>
@@ -28,17 +31,11 @@
 
             </div>
 
-            <h2 class="center" id="your-turn">Your Turn</h2>
-            <h2 class="center" id="opponents-turn">Opponents Turn</h2>
-
-
-
+            <h2 class="center" id="your-turn"></h2>
+            <!-- <h2 class="center" id="opponents-turn">Opponents Turn</h2> -->
             <div class="card-wrapper">
-                <div class="current-left hide-btns">
-                    <form action="">
-                        <button>Attack</button>
-                    </form>
-                </div>
+                <input class="current-left hide-btns" type=submit value="Attack">
+                </input>
                 <div class="active">
                     <img class="element" src="/images/grass.png" alt="element">
                     <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/002.png" alt="Pokemon">
@@ -47,11 +44,8 @@
                         <div class="attack">AP:20</div>
                     </h3>
                 </div>
-
-                <div class="current-right hide-btns">
-                    <form action="">
-                        <button>Runaway</button>
-                    </form>
+                    <input class="current-right hide-btns" type=submit value="Runaway">
+                    </input>
                 </div>
             </div>
         </div>
