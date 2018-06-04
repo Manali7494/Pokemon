@@ -16,7 +16,7 @@ function result() {
 }
 
 const app = express();
-const PORT = process.env.PORT || result();
+const PORT = process.env.PORT || 8080;
 
 app.use(
   cookieSession({
@@ -169,13 +169,13 @@ app.get("/join", (request, response) => {
     .andWhere("multi_winner", "")
     .orWhere("user1_name", request.session.userid)
     .andWhere("multi_winner", "")
-    .then(function(result) {
+    .then((result) => {
       console.log("Current player:" + request.session.userid);
 
       // get user table info for pknum and username
       knex("users")
         .where({ username: request.session.userid })
-        .then(function(data) {
+        .then((data) => {
           let usrnm = data[0].username;
           let pknum = data[0].pokedex_num;
 
@@ -259,7 +259,7 @@ app.get("/pokemon", (request, response) => {
     knex
       .select()
       .from("pokemon")
-      .then(function(result) {
+      .then((result) => {
         console.log("accessing pokemon database");
         return response.send(result);
       });
@@ -290,7 +290,7 @@ app.get("/multistats", (request, response) => {
       .andWhereNot("multi_winner", "")
       .orWhere("user1_name", request.session.userid)
       .andWhereNot("multi_winner", "")
-      .then(function(result) {
+      .then((result) => {
         console.log("accessing multigame database");
         return response.send(result);
       });
@@ -308,7 +308,7 @@ app.get("/multirank", (request, response) => {
       .whereNot("multi_winner", "")
       .count("multi_winner as wins")
       .groupBy("multi_winner")
-      .then(function(result) {
+      .then((result) => {
         console.log("accessing multigame database");
         return response.send(result);
       });
@@ -331,7 +331,7 @@ app.get("/last", (request, response) => {
       .where("user1_name", usrID).andWhereNot("multi_winner","")
       .orWhere("user2_name", usrID).andWhereNot("multi_winner","")
       .orderBy("id","desc")
-      .then(function(result) {
+      .then((result) => {
         console.log(result[0]);
         response.send(result[0]);
       });
@@ -352,7 +352,7 @@ app.get("/currentgame", (request, response) => {
       .andWhere("multi_winner", "")
       .orWhere("user2_name", usrID)
       .andWhere("multi_winner", "")
-      .then(function(result) {
+      .then((result) => {
         console.log("accessing multigame database");
         return response.send(result);
       });
@@ -371,7 +371,7 @@ app.post("/currentgame", (request, response) => {
     .orWhere("user2_name", usrID)
     .andWhere("multi_winner", "")
     .update(request.body)    
-    .then(function(res) {
+    .then((res) => {
       
     });
     
@@ -384,7 +384,7 @@ app.get("/multigame", (request, response) => {
     knex
       .select()
       .from("multigame")
-      .then(function(result) {
+      .then((result) => {
         console.log("accessing multigame database");
         return response.send(result);
       });
@@ -402,7 +402,7 @@ app.get("/users", (request, response) => {
     knex
       .select()
       .from("users")
-      .then(function(result) {
+      .then((result) => {
         console.log("accessing user database");
         return response.send(result);
       });
@@ -418,7 +418,7 @@ app.get("/user", (request, response) => {
       .select()
       .from("users")
       .where("username", usrID)
-      .then(function(result) {
+      .then((result) => {
         console.log("accessing user database");
         return response.send(result);
       });
@@ -432,7 +432,7 @@ app.get("/gamesSorted", (request, response) => {
   if (usrID !== undefined) {
     knex
       .select('username', 'wins').from('users').orderBy('wins', 'desc')
-      .then(function(result) {
+      .then((result) => {
         return response.send(result);
       });
   } else {
