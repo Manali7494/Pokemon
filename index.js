@@ -16,7 +16,7 @@ function result() {
 }
 
 const app = express();
-const PORT = process.env.PORT || result();
+const PORT = process.env.PORT || 8080;
 
 app.use(
   cookieSession({
@@ -411,6 +411,18 @@ app.get("/user", (request, response) => {
   }
 });
 
+app.get("/gamesSorted", (request, response) => {
+  const usrID = request.session.userid;
+  if (usrID !== undefined) {
+    knex
+      .select('username', 'wins').from('users').orderBy('wins', 'desc')
+      .then(function(result) {
+        return response.send(result);
+      });
+  } else {
+    response.redirect("/login");
+  }
+});
 //  >>>>>>>>>>>>>>>>> DATABASE ROUTES ABOVE <<<<<<<<<<<<<<<<<<
 
 // app.get("/wild", (request, response) => {
@@ -422,25 +434,30 @@ app.post("/register", (request, response) => {
   if (
     request.body.username !== "" &&
     request.body.email !== "" &&
-    request.body.pass !== ""
-  ) {
+    request.body.pass !== "") {
     let rand = Math.round(Math.random() * 2);
     let array = [1, 4, 7];
     let num = array[rand];
 
-    knex("users")
-      .insert({
-        username: request.body.username,
-        email: request.body.email,
-        password: request.body.pass,
-        pokedex_num: num
-      })
-      .then(result => {
-        response.status(200);
-      });
-    request.session["userid"] = request.body.username;
-    response.redirect("/profile");
-  } else {
+    knex.select('username').from("users").where("username",request.body.username).then(result => {
+      if (result.length === 0){
+            knex("users")
+            .insert({
+                username: request.body.username,
+                email: request.body.email,
+                password: request.body.pass,
+                pokedex_num: num}).then(result => {
+                response.status(200);
+                });
+      request.session["userid"] = request.body.username;
+      response.redirect("/profile");
+      }
+      else if (result.length > 0) {
+        response.send("Please select another username");
+      }
+    });
+  }
+  else {
     response.send("Please enter a valid username, email, and password");
   }
 });

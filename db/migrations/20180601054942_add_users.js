@@ -5,6 +5,7 @@ exports.up = function(knex) {
     table.string('email').notNullable();
     table.string('password').notNullable();
     table.integer('pokedex_num').notNullable();
+    table.integer('wins').defaultTo(0);
   });
 };
 
