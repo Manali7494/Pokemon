@@ -451,10 +451,8 @@ app.post("/register", (request, response) => {
     request.body.username !== "" &&
     request.body.email !== "" &&
     request.body.pass !== "") {
-    let rand = Math.round(Math.random() * 2);
-    let array = [1, 4, 7];
-    let num = array[rand];
-
+    const num = Math.round(Math.random()* 800);
+  
     knex.select('username').from("users").where("username",request.body.username).then(result => {
       if (result.length === 0){
             knex("users")

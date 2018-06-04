@@ -3,7 +3,7 @@
 
 <head>
     <%- include ./partials/_header.ejs %>
-        <script src="/scripts/async-polling.min.js"></script>
+        <script src="/scripts/async-polling.min.js" async></script>
         <script src="/scripts/check.js" async></script>
 
         <link rel="stylesheet" type="text/css" href="/styles/layout.css">
@@ -21,7 +21,7 @@
 
                 <div class="opponent">
                     <img class="element" src="/images/grass.png" alt="element">
-                    <img id="opppoke" alt="Pokemon">
+                    <img id="opppoke" src="https://media2.giphy.com/media/tXL4FHPSnVJ0A/giphy.gif" alt="Pokemon">
                     <h3>
                         <div class="hp">HP:100</div>
                         <div class="attack">AP:20</div>
@@ -44,7 +44,7 @@
                 </input>
                 <div class="active">
                     <img class="element" src="/images/grass.png" alt="element">
-                    <img id="mypoke"  alt="Pokemon">
+                    <img id="mypoke" src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/002.png" alt="Pokemon">
                     <h3>
                         <div class="hp">HP:100</div>
                         <div class="attack">AP:20</div>
