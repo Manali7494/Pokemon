@@ -1,13 +1,3 @@
-/*$(document).ready(function(){
-$("#statsTable").hide();
-
-$.get("/multigame", function(data){
-  $("#stats").click(function(){
-    $("#central").hide();
-    $("#statsTable").show();
-  });
-});*/
-
 
 $(document).ready(function(){
   $("#statsTable").hide();
@@ -30,13 +20,12 @@ var index = 0;
     for (var i of array){
     index += 1;
     if (index <= array.length){
-    $("#tableS").append(`<tr> <th> ${index} </th> <th>${i.user1_name} </th> <th> ${i.user2_name}</th> <th> ${i.multi_winner}</tr>`);
+    $("#tableS").append(`<tr> <th>${i.user1_name} </th> <th> ${i.user2_name}</th> <th> ${i.multi_winner}</tr>`);
     }
     }
         $("#central").hide();
     $("#statsTable").show();
     });
-
     });
   });
 
@@ -50,10 +39,6 @@ var index = 0;
         });
         $('.numWins').text(`Your rank is: ${rank}`);
     });
-
     });
     });
-
-
-
 });
