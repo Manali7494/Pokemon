@@ -4,7 +4,7 @@
 <head>
     <%- include ./partials/_header.ejs %>
         <script src="/scripts/async-polling.min.js"></script>
-        <script src="/scripts/check.js" async></script>
+        <script src="/scripts/lastgame.js" async></script>
 
         <link rel="stylesheet" type="text/css" href="/styles/layout.css">
         <link rel="stylesheet" type="text/css" href="/styles/cards.css">
@@ -30,16 +30,18 @@
 
 
             </div>
-            
+
 
             <h2 class="center" id="your-turn"></h2>
             <!-- <h2 class="center" id="opponents-turn">Opponents Turn</h2> -->
             <div class="card-wrapper">
+                <a href="/profile">
                     <div id="gameover">
-                            <h1>Game over!</h1>
-                            <h2></h2>
-                            <a href="/profile"><h4>click to leave game</h4></a>
-                        </div>
+                        <h1>Game over!</h1>
+                        <h2></h2>
+                        <h4>click to leave game</h4>
+                    </div>
+                </a>
                 <input class="current-left hide-btns" type=submit value="Attack">
                 </input>
                 <div class="active">

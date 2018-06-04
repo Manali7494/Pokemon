@@ -210,7 +210,7 @@ app.get("/join", (request, response) => {
                   response.status(200);
                 });
               console.log("player 2 going to game " + gameid);
-              return response.redirect("/multi/:" + gameid);
+              return response.redirect("/multi");
             }
 
             // if player1 is me than take me to the game
@@ -239,7 +239,7 @@ app.get("/join", (request, response) => {
                 response.status(200);
               });
             console.log("I create a game");
-            return response.redirect("/pending");
+            return response.redirect("/join");
           }
         });
     });
@@ -318,6 +318,29 @@ app.get("/multirank", (request, response) => {
 });
 
 //  >>>>>>>>>>>>>>>>> GET currentgame <<<<<<<<<<<<<<<<<<//
+app.get("/lastgame", (request, response) => {
+response.render("lastgame");
+});
+
+app.get("/last", (request, response) => {
+  const usrID = request.session.userid;
+  if (usrID !== undefined) {
+    knex
+      .select()
+      .from("multigame")
+      .where("user1_name", usrID).andWhereNot("multi_winner","")
+      .orWhere("user2_name", usrID).andWhereNot("multi_winner","")
+      .orderBy("id","desc")
+      .then(function(result) {
+        console.log(result[0]);
+        response.send(result[0]);
+      });
+  } else {
+    response.redirect("/login");
+  }
+});
+
+
 
 app.get("/currentgame", (request, response) => {
   const usrID = request.session.userid;
@@ -351,6 +374,7 @@ app.post("/currentgame", (request, response) => {
     .then(function(res) {
       
     });
+    
 });
 //  >>>>>>>>>>>>>>>>> GET multigame <<<<<<<<<<<<<<<<<<//
 
