@@ -169,13 +169,13 @@ app.get("/join", (request, response) => {
     .andWhere("multi_winner", "")
     .orWhere("user1_name", request.session.userid)
     .andWhere("multi_winner", "")
-    .then((result) => {
+    .then(result => {
       console.log("Current player:" + request.session.userid);
 
       // get user table info for pknum and username
       knex("users")
         .where({ username: request.session.userid })
-        .then((data) => {
+        .then(data => {
           let usrnm = data[0].username;
           let pknum = data[0].pokedex_num;
 
@@ -259,7 +259,7 @@ app.get("/pokemon", (request, response) => {
     knex
       .select()
       .from("pokemon")
-      .then((result) => {
+      .then(result => {
         console.log("accessing pokemon database");
         return response.send(result);
       });
@@ -290,7 +290,7 @@ app.get("/multistats", (request, response) => {
       .andWhereNot("multi_winner", "")
       .orWhere("user1_name", request.session.userid)
       .andWhereNot("multi_winner", "")
-      .then((result) => {
+      .then(result => {
         console.log("accessing multigame database");
         return response.send(result);
       });
@@ -308,7 +308,7 @@ app.get("/multirank", (request, response) => {
       .whereNot("multi_winner", "")
       .count("multi_winner as wins")
       .groupBy("multi_winner")
-      .then((result) => {
+      .then(result => {
         console.log("accessing multigame database");
         return response.send(result);
       });
@@ -319,7 +319,7 @@ app.get("/multirank", (request, response) => {
 
 //  >>>>>>>>>>>>>>>>> GET currentgame <<<<<<<<<<<<<<<<<<//
 app.get("/lastgame", (request, response) => {
-response.render("lastgame");
+  response.render("lastgame");
 });
 
 app.get("/last", (request, response) => {
@@ -328,10 +328,12 @@ app.get("/last", (request, response) => {
     knex
       .select()
       .from("multigame")
-      .where("user1_name", usrID).andWhereNot("multi_winner","")
-      .orWhere("user2_name", usrID).andWhereNot("multi_winner","")
-      .orderBy("id","desc")
-      .then((result) => {
+      .where("user1_name", usrID)
+      .andWhereNot("multi_winner", "")
+      .orWhere("user2_name", usrID)
+      .andWhereNot("multi_winner", "")
+      .orderBy("id", "desc")
+      .then(result => {
         console.log(result[0]);
         response.send(result[0]);
       });
@@ -339,8 +341,6 @@ app.get("/last", (request, response) => {
     response.redirect("/login");
   }
 });
-
-
 
 app.get("/currentgame", (request, response) => {
   const usrID = request.session.userid;
@@ -352,7 +352,7 @@ app.get("/currentgame", (request, response) => {
       .andWhere("multi_winner", "")
       .orWhere("user2_name", usrID)
       .andWhere("multi_winner", "")
-      .then((result) => {
+      .then(result => {
         console.log("accessing multigame database");
         return response.send(result);
       });
@@ -361,8 +361,6 @@ app.get("/currentgame", (request, response) => {
   }
 });
 
-
-
 app.post("/currentgame", (request, response) => {
   const usrID = request.session.userid;
   knex("multigame")
@@ -370,11 +368,8 @@ app.post("/currentgame", (request, response) => {
     .andWhere("multi_winner", "")
     .orWhere("user2_name", usrID)
     .andWhere("multi_winner", "")
-    .update(request.body)    
-    .then((res) => {
-      
-    });
-    
+    .update(request.body)
+    .then(res => {});
 });
 //  >>>>>>>>>>>>>>>>> GET multigame <<<<<<<<<<<<<<<<<<//
 
@@ -384,7 +379,7 @@ app.get("/multigame", (request, response) => {
     knex
       .select()
       .from("multigame")
-      .then((result) => {
+      .then(result => {
         console.log("accessing multigame database");
         return response.send(result);
       });
@@ -395,14 +390,13 @@ app.get("/multigame", (request, response) => {
 
 //  >>>>>>>>>>>>>>>>> GET ALL of current users information (password) <<<<<<<<<<<<<<<<<<//
 
-
 app.get("/users", (request, response) => {
   const usrID = request.session.userid;
   if (usrID !== undefined) {
     knex
       .select()
       .from("users")
-      .then((result) => {
+      .then(result => {
         console.log("accessing user database");
         return response.send(result);
       });
@@ -418,7 +412,7 @@ app.get("/user", (request, response) => {
       .select()
       .from("users")
       .where("username", usrID)
-      .then((result) => {
+      .then(result => {
         console.log("accessing user database");
         return response.send(result);
       });
@@ -431,8 +425,10 @@ app.get("/gamesSorted", (request, response) => {
   const usrID = request.session.userid;
   if (usrID !== undefined) {
     knex
-      .select('username', 'wins').from('users').orderBy('wins', 'desc')
-      .then((result) => {
+      .select("username", "wins")
+      .from("users")
+      .orderBy("wins", "desc")
+      .then(result => {
         return response.send(result);
       });
   } else {
@@ -450,28 +446,33 @@ app.post("/register", (request, response) => {
   if (
     request.body.username !== "" &&
     request.body.email !== "" &&
-    request.body.pass !== "") {
-    const num = Math.round(Math.random()* 800);
-  
-    knex.select('username').from("users").where("username",request.body.username).then(result => {
-      if (result.length === 0){
-            knex("users")
+    request.body.pass !== ""
+  ) {
+    const num = Math.round(Math.random() * 800);
+
+    knex
+      .select("username")
+      .from("users")
+      .where("username", request.body.username)
+      .then(result => {
+        if (result.length === 0) {
+          knex("users")
             .insert({
-                username: request.body.username,
-                email: request.body.email,
-                password: request.body.pass,
-                pokedex_num: num}).then(result => {
-                response.status(200);
-                });
-      request.session["userid"] = request.body.username;
-      response.redirect("/profile");
-      }
-      else if (result.length > 0) {
-        response.send("Please select another username");
-      }
-    });
-  }
-  else {
+              username: request.body.username,
+              email: request.body.email,
+              password: request.body.pass,
+              pokedex_num: num
+            })
+            .then(result => {
+              response.status(200);
+            });
+          request.session["userid"] = request.body.username;
+          response.redirect("/profile");
+        } else if (result.length > 0) {
+          response.send("Please select another username");
+        }
+      });
+  } else {
     response.send("Please enter a valid username, email, and password");
   }
 });
