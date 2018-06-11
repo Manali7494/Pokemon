@@ -1,0 +1,58 @@
+
+@mixin transition ($second){
+    transition: all $second;
+    -webkit-transition: all $second;
+    -o-transition: all $second;
+    -moz-transition: all $second;
+}
+
+@mixin inputFocus($color){
+    input:focus::-webkit-input-placeholder{color: $color}
+    input:focus:-moz-placeholder{color:$color};
+    input:focus::-moz-placeholder{color:$color};
+    input:focus:-ms-input-placeholder{color:$color};
+}
+
+@mixin input($color){
+    input::-webkit-input-placeholder{color:$color};
+    input:-moz-placeholder{color: $color};
+    input::-moz-placeholder{color: $color};
+    input:-ms-input-placeholder{color: $color};
+}
+
+@mixin textarea($color){
+    textarea::-webkit-input-placeholder{color: $color};
+    textarea::-moz-placeholder{color:$color};
+    textarea:-moz-placeholder{color:$color};
+    textarea:-ms-input-placeholdeer{color:$color};
+}
+
+@mixin textareaFocus($color){
+    text-area:focus::-webkit-input-placeholder{color: $color};
+    text-area:focus:-moz-placeholder{color: $color};
+    text-area:focus::-moz-placeholder{color: $color};
+    text-area:focus:-ms-input-placeholder{color: $color};
+}
+
+@mixin display(){
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+@mixin box-shadow($color){
+    box-shadow: 0 5px 10px 0px $color;
+    -moz-box-shadow: 0 5px 10px 0px $color;
+    -webkit-box-shadow: 0 5px 10px 0px $color;
+    -o-box-shadow: 0 5px 10px 0px $color;
+    -ms-box-shadow: 0 5px 10px 0px $color;
+}
+
+@mixin linear-gradient-b($args...){
+    background: -webkit-linear-gradient($args);
+    background: -o-linear-gradient($args);
+  background: -moz-linear-gradient($args);
+  background: linear-gradient($args);
+}

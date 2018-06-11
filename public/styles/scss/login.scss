@@ -1,0 +1,138 @@
+@import "fontFace";
+@import "mixins";
+@import "template";
+
+$grey: #666666;
+$darkGrey: #333333;
+$white: #ffffff;
+$pink: #ff22ff;
+$blue: #1671c7;
+
+
+
+// --------- LOGIN -------------//
+
+.container-login100 {
+  width: 100%;
+  min-height: 100%;
+  @include display();
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  background: $white;
+}
+
+.wrap-login100{
+    width: 390px;
+    background: $white;
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 25px 55px 33px 55px;
+    @include box-shadow(rgba(0, 0, 0, 0.1));
+}
+
+// ---------- FORM --------------//
+
+.login100-form {
+    width: 100%;
+  }
+  
+  .login100-form-title {
+    display: block;
+    font-family: fantasy;
+    font-size: 30px;
+    color: $blue;
+    line-height: 1.2;
+    text-align: center;
+    margin: -3%;
+  }
+  .login100-form-title i {
+    font-size: 60px;
+  }
+  
+
+  // --------- Button ------------//
+  .container-login100-form-btn{
+    @include display();
+    justify-content: center;
+    padding-top: 1vh;
+  }
+
+  .wrap-login100-form-btn {
+    width: 100%;
+    display: block;
+    position: relative;
+    z-index: 1;
+    border-radius: 25px;
+    overflow: hidden;
+    margin: 0 auto;
+  }
+
+  .login100-form-bgbtn {
+    position: absolute;
+    z-index: -1;
+    width: 300%;
+    height: 100%;;
+    background: #a64bf4;
+
+    @include linear-gradient-b(right,  #e2d02f, #1671c7, #fdf921, #1671c7)
+    top: 0;
+    left: -100%;
+
+    @include transition(0.2s);
+  }
+
+  .login100-form-btn{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-size: 22px;
+  color:$white;
+  line-height: 1.2;
+  text-transform: uppercase;
+
+  @include display();
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
+  width: 100%;
+  height: 50px;
+  text-decoration: none;
+  }
+
+  .wrap-login100-form-btn:hover .login100-form-bgbtn {
+    left: 0;
+  }
+
+  // ---------- Responsive ------//
+
+  @media (max-width: 576px) {
+    .wrap-login100 {
+      padding: 5vh 2vh 5vh 2vh;
+    }
+  }
+  
+  
+  
+  @media (max-width: 992px) {
+    .alert-validate::before {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+  
+  .register {
+    margin-top: 1vh;
+  }
+  
+  .register a {
+    text-decoration: none;
+    color: #ffffff
+  }
+  
+  .login-img {
+     width: 100%;
+  }
+  
+  .img-wrap {
+  margin-bottom: 5%;
+  }

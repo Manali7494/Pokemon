@@ -1,0 +1,187 @@
+
+$grey: #666666;
+$darkGrey: #333333;
+$white: #ffffff;
+$pink: #ff22ff;
+$blue: #1671c7;
+
+@import 'mixins';
+
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+  }
+  
+  body {
+    html {
+      height: 100%;
+      font-family: fantasy, sans-serif;
+    }
+    a {
+      font-family: fantasy;
+      font-size: 14px;
+      line-height: 1.7;
+      color: $grey;
+      margin: 0px;
+      @include transition(0.4s);
+      :focus {
+        outline: none !important;
+      }
+      :hover {
+        text-decoration: none;
+        color: $white;
+      }
+    }
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 0px;
+  }
+  
+  p {
+    font-family: fantasy;
+    font-size: 14px;
+    line-height: 1.7;
+    color: $grey;
+    margin: 0px;
+  }
+  
+  ul,
+  li {
+    margin: 0px;
+    list-style-type: none;
+  }
+  
+  input,
+  textarea {
+    outline: none;
+    border: none;
+  }
+  input:focus,
+  textarea:focus {
+    border-color: transparent !important;
+  }
+  
+  @include inputFocus(transparent);
+  @include input(#adadad);
+  @include textarea(#adadad);
+  @include textareaFocus(transparent);
+  
+  // ---------------------------------//
+  button {
+    outline: none !important;
+    border: none;
+    background: transparent;
+    :hover {
+      cursor: pointer;
+    }
+  }
+  
+  iframe {
+    border: none !important;
+  }
+  
+  // ------------Utility------------------//
+  
+  .txt1,
+  .txt2 {
+    font-family: fantasy;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  
+  .txt1 {
+    color: $grey;
+  }
+  .txt2 {
+    color: $darkGrey;
+  }
+  
+  // --------- LOGIN -------------//
+.limiter {
+    width: 100%;
+    margin: 0 auto;
+  }
+
+    // ------ INPUT -----//
+
+    .wrap-input100 {
+        width: 100%;
+        position: relative;
+        border-bottom: 3px solid #d3d3d3;
+        margin-bottom: 37px;
+      }
+      
+      .input100 {
+        font-family: fantasy;
+        font-size: 15px;
+        color: $grey;
+        line-height: 1.2;
+      
+        display: block;
+        width: 100%;
+        height: 15px;
+        background: transparent;
+        padding: 0 5px;
+      }
+      
+      .focus-input100 {
+        position: absolute;
+        display: block;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+      }
+    
+      .focus-input100::before {
+        content: "";
+        display: block;
+        position: absolute;
+        bottom: -3px;
+        left: 0;
+        width: 0;
+        height: 3px;
+      
+        @include transition(1s);
+        @include linear-gradient-b(left, #fc5640a4, #d6ff21, #42ff21);
+       
+      }
+    
+      .focus-input100::after{
+        font-family: fantasy;
+        font-size: 15px;
+        color: #999999;
+        line-height: 1.2;
+    
+        content: attr(data-placeholder);
+        display: block;
+        width: 100%;
+        position: absolute;
+        top: 16px;
+        left: 0px;
+        padding-left: 5px;
+    
+        @include transition(0.2s);
+      }
+    
+      .input100:focus + .focus-input100::after{
+        top: -15px;
+      }
+    
+      .input100:focus + .focus-input100::before{
+        width: 100%;
+      }
+      .has-val.input100 + .focus-input100::after {
+        top: -15px;
+      }
+      
+      .has-val.input100 + .focus-input100::before {
+        width: 100%;
+      }
